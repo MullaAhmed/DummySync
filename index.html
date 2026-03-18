@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TriMemory — Throne of Glass</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap');
+:root{--bg:#faf9f5;--card:#faf9f5;--panel:rgba(250,249,245,.93);--primary:#c96442;--pfg:#fff;--fg:#3d3929;--mfg:#83827d;--afg:#28261b;--border:#dad9d4;--input:#b4b2a7;--muted:#ede9de;--accent:#e9e6dc;--secondary:#e9e6dc;--sfg:#535146;--chart1:#b05730;--chart2:#9c87f5;--chart3:#ded8c4;--chart4:#dbd3f0;--chart5:#b4552d;--popover:#fff;--sidebar:#f5f4ee;--sbg:rgba(0,0,0,.04)}
+[data-theme="dark"]{--bg:#262624;--card:#262624;--panel:rgba(38,38,36,.93);--primary:#d97757;--pfg:#fff;--fg:#c3c0b6;--mfg:#b7b5a9;--afg:#f5f4ee;--border:#3e3e38;--input:#52514a;--muted:#1b1b19;--accent:#1a1915;--secondary:#faf9f5;--sfg:#30302e;--chart1:#b05730;--chart2:#9c87f5;--chart3:#1a1915;--chart4:#2f2b48;--chart5:#b4552d;--popover:#30302e;--sidebar:#1f1e1d;--sbg:rgba(255,255,255,.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:'EB Garamond',serif;overflow:hidden;height:100vh;transition:background .5s,color .5s}
+canvas{display:block;position:fixed;inset:0;z-index:0}
+.bar{position:fixed;top:0;left:0;right:0;height:48px;background:var(--panel);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:100;transition:all .5s}
+.logo{font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;gap:10px;color:var(--fg)}
+.logo-d{width:8px;height:8px;border-radius:50%;background:var(--primary);box-shadow:0 0 10px var(--primary);animation:gp 3s ease-in-out infinite}
+@keyframes gp{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
+.bar-r{display:flex;align-items:center;gap:18px}
+.stats{display:flex;gap:14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mfg)}.stats b{color:var(--fg);font-weight:500}
+.thm{width:44px;height:24px;border-radius:12px;background:var(--sbg);border:1px solid var(--border);position:relative;cursor:pointer;transition:all .3s;flex-shrink:0}
+.thm::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;top:2px;left:2px;transition:all .3s}
+[data-theme="light"] .thm::after{background:var(--primary);transform:translateX(0)}
+[data-theme="dark"] .thm::after{background:var(--mfg);transform:translateX(20px)}
+.thm span{position:absolute;top:4px;font-size:11px;line-height:1;pointer-events:none;transition:opacity .3s}
+.thm .ts{left:5px}.thm .tm{right:4px}
+[data-theme="light"] .thm .ts{opacity:.6}[data-theme="light"] .thm .tm{opacity:.2}
+[data-theme="dark"] .thm .ts{opacity:.2}[data-theme="dark"] .thm .tm{opacity:.6}
+.lp{position:fixed;left:10px;top:58px;width:220px;background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);padding:14px;z-index:90;max-height:calc(100vh - 130px);overflow-y:auto;transition:transform .35s,opacity .35s}
+.lp.collapsed{transform:translateX(-232px);opacity:0;pointer-events:none}
+.lp-tog{position:fixed;left:10px;top:58px;width:28px;height:28px;border-radius:var(--radius);background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--border);z-index:91;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--mfg);transition:all .35s;opacity:0;pointer-events:none}
+.lp-tog:hover{color:var(--fg);border-color:var(--primary)}
+.lp-tog.show{opacity:1;pointer-events:auto}
+.sh{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mfg);margin-bottom:8px;margin-top:14px}.sh:first-child{margin-top:0}
+.lt{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:var(--radius);cursor:pointer;transition:background .15s;margin-bottom:1px}.lt:hover{background:var(--sbg)}
+.ld{width:8px;height:8px;border-radius:50%;flex-shrink:0}.ln{flex:1;font-size:13px;color:var(--fg)}.lc{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--mfg)}
+.ck{width:28px;height:16px;border-radius:8px;background:var(--sbg);position:relative;transition:background .2s;flex-shrink:0;cursor:pointer}.ck.on{background:var(--primary)}
+.ck::after{content:'';position:absolute;width:12px;height:12px;border-radius:50%;background:var(--pfg);top:2px;left:2px;transition:transform .2s}.ck.on::after{transform:translateX(12px)}
+.dv{height:1px;background:var(--border);margin:10px 0}
+/* Layout buttons with description */
+.lbw{margin-bottom:6px}
+.lbb{display:flex;width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);background:transparent;color:var(--fg);font-family:'EB Garamond',serif;font-size:13px;cursor:pointer;transition:all .2s;text-align:left;flex-direction:column;gap:2px}
+.lbb:hover{border-color:var(--primary);background:var(--sbg)}
+.lbb.on{border-color:var(--primary);background:rgba(201,100,66,.08);color:var(--fg)}
+.lbb .lb-t{font-weight:600;display:flex;align-items:center;gap:6px}
+.lbb .lb-d{font-size:11px;color:var(--mfg);line-height:1.3;font-family:'JetBrains Mono',monospace;font-weight:300}
+.lbb.on .lb-d{color:var(--primary)}
+/* Position action buttons */
+.pos-row{display:flex;gap:4px;margin-bottom:4px}
+.pos-btn{flex:1;padding:6px 0;border:1px solid var(--border);border-radius:var(--radius);background:transparent;color:var(--fg);font-family:'JetBrains Mono',monospace;font-size:10px;cursor:pointer;transition:all .2s;text-align:center}
+.pos-btn:hover{border-color:var(--primary);background:var(--sbg)}
+.pos-btn.save{background:rgba(201,100,66,.08);border-color:var(--primary);color:var(--primary)}
+.pos-btn.save:hover{background:rgba(201,100,66,.15)}
+.drag-hint{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);padding:5px 14px;background:var(--panel);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mfg);z-index:85;opacity:0;transition:opacity .3s;pointer-events:none}
+.drag-hint.v{opacity:1}
+/* Search */
+.sb{position:fixed;top:58px;left:50%;transform:translateX(-50%);width:300px;z-index:95}
+.sb input{width:100%;padding:9px 14px 9px 34px;background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);color:var(--fg);font-family:'EB Garamond',serif;font-size:14px;outline:none;transition:all .3s}.sb input:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(201,100,66,.12)}
+.sb .si{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--mfg);font-size:14px}
+/* Right panel */
+.rp{position:fixed;right:10px;top:58px;width:310px;background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);padding:16px;z-index:90;max-height:calc(100vh - 130px);overflow-y:auto;transition:opacity .25s,transform .25s,background .5s}.rp.hd{opacity:0;pointer-events:none;transform:translateX(16px)}
+.rx{position:absolute;right:12px;top:12px;background:none;border:none;color:var(--mfg);cursor:pointer;font-size:16px;transition:color .2s}.rx:hover{color:var(--primary)}
+.rb{display:inline-block;padding:3px 9px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500}
+.rt{font-family:'Cinzel',serif;font-size:15px;font-weight:600;margin:8px 0 14px;line-height:1.35;color:var(--fg)}
+.rs{margin-bottom:14px}.rsh{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mfg);margin-bottom:5px}
+.rv{font-size:14px;color:var(--sfg);line-height:1.6}.rv strong{color:var(--fg);font-weight:600}
+.db{display:flex;align-items:center;gap:6px}.dbt{flex:1;height:5px;border-radius:3px;background:var(--sbg);overflow:hidden}.dbf{height:100%;border-radius:3px}.dbl{font-family:'JetBrains Mono',monospace;font-size:10px;min-width:30px;text-align:right}
+.tr{display:flex;justify-content:space-between;padding:2px 0;font-size:13px}.tr .tl{color:var(--mfg)}.tr .tv{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg)}
+.pc{display:flex;flex-direction:column;gap:3px}.pn{padding:6px 10px;border-radius:var(--radius);border-left:3px solid;background:var(--sbg);font-size:13px;cursor:pointer;transition:all .15s}.pn:hover{background:var(--accent)}.pa{color:var(--mfg);font-size:9px;padding-left:10px}
+/* Timeline */
+.tlc{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);width:min(580px,calc(100vw - 490px));background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);padding:12px 18px;z-index:90;transition:all .5s}
+.tlt{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.tltt{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mfg)}
+.tld{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg)}
+.tlm{display:flex;gap:1px;background:var(--sbg);border-radius:var(--radius);padding:2px}
+.tlm button{padding:3px 8px;border:none;border-radius:calc(var(--radius) - 2px);background:transparent;color:var(--mfg);font-family:'JetBrains Mono',monospace;font-size:9px;cursor:pointer;transition:all .15s}
+.tlm button.on{background:var(--primary);color:var(--pfg)}
+.tls{-webkit-appearance:none;width:100%;height:3px;border-radius:2px;background:var(--sbg);outline:none}
+.tls::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--primary);cursor:pointer;box-shadow:0 0 8px rgba(201,100,66,.35)}
+.tle{display:flex;justify-content:space-between;margin-top:3px;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--mfg)}
+.tip{position:fixed;padding:8px 14px;background:var(--popover);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;pointer-events:none;z-index:200;opacity:0;transition:opacity .12s;max-width:250px;box-shadow:0 4px 20px rgba(0,0,0,.08)}.tip.v{opacity:1}.tip .tty{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:1px;margin-bottom:3px}
+.leg{position:fixed;bottom:82px;right:10px;display:flex;flex-direction:column;gap:3px;z-index:80}.leg-i{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mfg)}.leg-d{width:6px;height:6px;border-radius:50%}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+</style></head>
+<body data-theme="light">
+<div class="bar">
+  <div class="logo"><div class="logo-d"></div>Throne of Glass</div>
+  <div class="bar-r"><div class="stats">Nodes <b id="sn">0</b>&nbsp;&nbsp;Edges <b id="se">0</b>&nbsp;&nbsp;Characters <b id="sent">0</b></div>
+  <div class="thm" id="thT"><span class="ts">☀</span><span class="tm">☾</span></div></div>
+</div>
+<div class="sb"><span class="si">⌕</span><input id="sinp" placeholder="Search characters, events, facts..."></div>
+<div class="lp-tog" id="lpTog" onclick="toggleLP()" title="Show panel">☰</div>
+<div class="lp" id="lpanel"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><div class="sh" style="margin:0">Layers</div><button onclick="toggleLP()" style="background:none;border:none;color:var(--mfg);cursor:pointer;font-size:16px;padding:0 2px;line-height:1;transition:color .2s" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--mfg)'" title="Hide panel">✕</button></div><div id="ltg"></div><div class="dv"></div><div class="sh">Connections</div><div id="etg"></div><div class="dv"></div><div class="sh">Layout</div><div id="lbt"></div><div class="dv"></div><div class="sh">Positions</div><div id="posBtns"></div><div id="posStatus" style="font-size:10px;color:var(--mfg);margin-top:6px;font-family:'JetBrains Mono',monospace;min-height:14px"></div></div>
+<div class="rp hd" id="rp"><button class="rx" onclick="closeD()">✕</button><div id="rc"></div></div>
+<div class="tlc"><div class="tlt"><div class="tltt">Story Timeline</div><div class="tlm"><button class="on" onclick="stm('system',this)">Narrative</button><button onclick="stm('world',this)">World</button></div><div class="tld" id="tld">All Chapters</div></div><input type="range" class="tls" id="tls" min="0" max="1000" value="1000"><div class="tle"><span>Ch.1 — Endovier</span><span>Ch.55 — King's Champion</span></div></div>
+<div class="tip" id="tip"></div>
+<div class="drag-hint" id="dragHint">Drag nodes to reposition · Right-click to orbit</div>
+<div class="leg">
+  <div class="leg-i"><div class="leg-d" style="background:var(--primary)"></div>Episode</div>
+  <div class="leg-i"><div class="leg-d" style="background:var(--chart2)"></div>Event</div>
+  <div class="leg-i"><div class="leg-d" style="background:var(--chart1)"></div>Fact</div>
+  <div class="leg-i"><div class="leg-d" style="background:var(--chart5)"></div>Pattern</div>
+  <div class="leg-i"><div class="leg-d" style="background:#7a6ad4"></div>Principle</div>
+  <div class="leg-i"><div class="leg-d" style="background:#5a9e97"></div>Character</div>
+</div>
+<script>
+let theme='light';
+const TH={
+  light:{clear:0xfaf9f5,amb:1,p1:.6,p2:.2,dust:0xd8d4c8,dop:.08,emF:.06,
+    C:{L0:{h:'#c96442',r:.79,g:.39,b:.26},L1:{h:'#9c87f5',r:.61,g:.53,b:.96},L2:{h:'#b05730',r:.69,g:.34,b:.19},L3:{h:'#b4552d',r:.71,g:.33,b:.18},L4:{h:'#7a6ad4',r:.48,g:.42,b:.83},Entity:{h:'#5a9e97',r:.35,g:.62,b:.59}},
+    edge:{prov:0xa07858,part:0x7aaa9e,intra:0xb8b0a0,ent:0x9c87f5},
+    eOp:{prov:.38,part:.30,intra:.22,ent:.32}},
+  dark:{clear:0x262624,amb:.55,p1:.9,p2:.25,dust:0x1a1a2e,dop:.2,emF:.2,
+    C:{L0:{h:'#d97757',r:.85,g:.47,b:.34},L1:{h:'#b09af7',r:.69,g:.60,b:.97},L2:{h:'#c8714a',r:.78,g:.44,b:.29},L3:{h:'#d06840',r:.82,g:.41,b:.25},L4:{h:'#9c87f5',r:.61,g:.53,b:.96},Entity:{h:'#76b7b0',r:.46,g:.72,b:.69}},
+    edge:{prov:0xa08060,part:0x66a8a0,intra:0x605850,ent:0x8878d0},
+    eOp:{prov:.30,part:.22,intra:.16,ent:.25}}
+};
+let T=TH.light,CC=T.C;
+
+function DT(ch){return new Date(2024,0,ch)}
+const ents=[
+  {id:'e1',type:'Entity',name:'Celaena Sardothien',entity_type:'person',summary:'Adarlan\'s most notorious assassin. Enslaved in Endovier, chosen as Dorian\'s Champion.',mention_count:95,decay_strength:.98,created_at:DT(1),valid_at:DT(1),loc:'endovier',arc:'all'},
+  {id:'e2',type:'Entity',name:'Dorian Havilliard',entity_type:'person',summary:'Crown Prince of Adarlan. Bookish, sapphire-eyed. Sponsors Celaena.',mention_count:72,decay_strength:.95,created_at:DT(2),valid_at:DT(2),loc:'castle',arc:'romance'},
+  {id:'e3',type:'Entity',name:'Chaol Westfall',entity_type:'person',summary:'Captain of the Royal Guard. Dutiful protector. Complex feelings for Celaena.',mention_count:68,decay_strength:.94,created_at:DT(1),valid_at:DT(1),loc:'castle',arc:'protection'},
+  {id:'e4',type:'Entity',name:'King of Adarlan',entity_type:'person',summary:'Ruthless ruler who banned magic and conquered Erilea. Wields Nothung.',mention_count:35,decay_strength:.90,created_at:DT(1),valid_at:DT(1),loc:'castle',arc:'antagonist'},
+  {id:'e5',type:'Entity',name:'Nehemia Ytger',entity_type:'person',summary:'Princess of Eyllwe. Rebel ally. Knows Wyrdmarks.',mention_count:40,decay_strength:.92,created_at:DT(10),valid_at:DT(10),loc:'castle',arc:'rebellion'},
+  {id:'e6',type:'Entity',name:'Cain',entity_type:'person',summary:'Perrington\'s Champion. Uses dark Wyrdmarks to summon creatures.',mention_count:30,decay_strength:.60,created_at:DT(10),valid_at:DT(10),loc:'castle',arc:'antagonist'},
+  {id:'e7',type:'Entity',name:'Elena Galathynius',entity_type:'spirit',summary:'Ancient queen\'s ghost. Guides Celaena from the tomb.',mention_count:22,decay_strength:.88,created_at:DT(15),valid_at:DT(15),loc:'tomb',arc:'destiny'},
+  {id:'e8',type:'Entity',name:'Glass Castle',entity_type:'location',summary:'Towering seat of Adarlan\'s power in Rifthold.',mention_count:45,decay_strength:.93,created_at:DT(5),valid_at:DT(5),loc:'castle',arc:'all'},
+  {id:'e9',type:'Entity',name:'Endovier',entity_type:'location',summary:'Salt mines. Average life expectancy: one month.',mention_count:18,decay_strength:.40,created_at:DT(1),valid_at:DT(1),loc:'endovier',arc:'captivity'},
+  {id:'e10',type:'Entity',name:'Wyrdmarks',entity_type:'concept',summary:'Ancient symbols of power. Connected to Wyrdgates.',mention_count:25,decay_strength:.85,created_at:DT(15),valid_at:DT(15),loc:'tomb',arc:'magic'},
+  {id:'e11',type:'Entity',name:'Duke Perrington',entity_type:'person',summary:'King\'s advisor. Sponsors Cain. Darker motives.',mention_count:15,decay_strength:.72,created_at:DT(2),valid_at:DT(2),loc:'castle',arc:'antagonist'},
+  {id:'e12',type:'Entity',name:'Eye of Elena',entity_type:'artifact',summary:'Protective amulet. Shatters in the final duel.',mention_count:18,decay_strength:.80,created_at:DT(15),valid_at:DT(15),loc:'tomb',arc:'magic'}
+];
+const eps=[
+  {id:'ep1',type:'L0',content:'Chaol escorts shackled Celaena through Endovier. She memorizes escape routes.',session_id:'ch1',seq:1,decay_strength:.20,created_at:DT(1),valid_at:DT(1),loc:'endovier',arc:'captivity'},
+  {id:'ep2',type:'L0',content:'Celaena before Prince Dorian. Duke Perrington forces her to bow.',session_id:'ch2',seq:1,decay_strength:.25,created_at:DT(2),valid_at:DT(2),loc:'endovier',arc:'captivity'},
+  {id:'ep3',type:'L0',content:'Dorian proposes the Champion competition. Freedom after service.',session_id:'ch3',seq:1,decay_strength:.35,created_at:DT(3),valid_at:DT(3),loc:'endovier',arc:'rising'},
+  {id:'ep4',type:'L0',content:'Glass Castle. Million-volume library. Dorian sends her seven books.',session_id:'ch5',seq:1,decay_strength:.40,created_at:DT(5),valid_at:DT(5),loc:'castle',arc:'rising'},
+  {id:'ep5',type:'L0',content:'Champions meet the King. 23 competitors. Celaena notices Cain.',session_id:'ch10',seq:1,decay_strength:.45,created_at:DT(10),valid_at:DT(10),loc:'castle',arc:'rising'},
+  {id:'ep6',type:'L0',content:'Celaena meets Princess Nehemia. They bond over defiance.',session_id:'ch12',seq:1,decay_strength:.55,created_at:DT(12),valid_at:DT(12),loc:'castle',arc:'rising'},
+  {id:'ep7',type:'L0',content:'Champions found dead and mutilated. Dark Wyrdmarks near bodies.',session_id:'ch18',seq:1,decay_strength:.60,created_at:DT(18),valid_at:DT(18),loc:'castle',arc:'crisis'},
+  {id:'ep8',type:'L0',content:'Elena\'s ghost in the tomb. Gives Celaena the Eye of Elena.',session_id:'ch15',seq:1,decay_strength:.65,created_at:DT(15),valid_at:DT(15),loc:'tomb',arc:'crisis'},
+  {id:'ep9',type:'L0',content:'Daily training with Chaol. Mutual respect deepens.',session_id:'ch9',seq:1,decay_strength:.50,created_at:DT(9),valid_at:DT(9),loc:'castle',arc:'rising'},
+  {id:'ep10',type:'L0',content:'Dorian and Celaena bond over books and music. He kisses her.',session_id:'ch25',seq:1,decay_strength:.70,created_at:DT(25),valid_at:DT(25),loc:'castle',arc:'rising'},
+  {id:'ep11',type:'L0',content:'Cain exposed — using Wyrdmarks to summon creatures, killing Champions.',session_id:'ch35',seq:1,decay_strength:.78,created_at:DT(35),valid_at:DT(35),loc:'tomb',arc:'crisis'},
+  {id:'ep12',type:'L0',content:'Celaena fights the Ridderak in the tomb with Nehemia.',session_id:'ch38',seq:1,decay_strength:.82,created_at:DT(38),valid_at:DT(38),loc:'tomb',arc:'climax'},
+  {id:'ep13',type:'L0',content:'Final duel. Poisoned. Cain summons a creature. Eye shatters.',session_id:'ch48',seq:1,decay_strength:.90,created_at:DT(48),valid_at:DT(48),loc:'castle',arc:'climax'},
+  {id:'ep14',type:'L0',content:'Celaena wins. Signs contract. King threatens Chaol and Nehemia.',session_id:'ch55',seq:1,decay_strength:.96,created_at:DT(55),valid_at:DT(55),loc:'castle',arc:'resolution'},
+  {id:'ep15',type:'L0',content:'Elena: "Blood ties can\'t be broken." Celaena leaves with Chaol.',session_id:'ch54',seq:1,decay_strength:.94,created_at:DT(54),valid_at:DT(54),loc:'tomb',arc:'resolution'}
+];
+const evts=[
+  {id:'ev1',type:'L1',title:'Liberation from Endovier',narrative:'Chaol extracts Celaena. Dorian offers the Champion competition.',heat_score:.9,decay_strength:.50,created_at:DT(3),valid_at:DT(1),foresight:'Slave to champion journey begins',loc:'endovier',arc:'captivity'},
+  {id:'ev2',type:'L1',title:'Arrival at the Glass Castle',narrative:'Court intrigue. Library discovered. Training under Chaol begins.',heat_score:.7,decay_strength:.55,created_at:DT(9),valid_at:DT(5),foresight:'Key relationships forming',loc:'castle',arc:'rising'},
+  {id:'ev3',type:'L1',title:'The Champion Murders',narrative:'Competitors dead. Wyrdmarks appear. Elena gives the amulet.',heat_score:.85,decay_strength:.68,created_at:DT(18),valid_at:DT(15),foresight:'True enemy is supernatural',loc:'castle',arc:'crisis'},
+  {id:'ev4',type:'L1',title:'Alliances & Romance',narrative:'Nehemia befriended. Dorian romance. Chaol respect. Triangle forms.',heat_score:.75,decay_strength:.72,created_at:DT(25),valid_at:DT(12),foresight:'Bonds become vulnerability',loc:'castle',arc:'rising'},
+  {id:'ev5',type:'L1',title:'Dark Magic Revealed',narrative:'Cain exposed. Celaena fights the Ridderak with Nehemia.',heat_score:.9,decay_strength:.82,created_at:DT(38),valid_at:DT(35),foresight:'Final confrontation needs more than skill',loc:'tomb',arc:'climax'},
+  {id:'ev6',type:'L1',title:'The Final Duel',narrative:'Celaena fights poisoned. Elena intervenes. Contract signed. King threatens.',heat_score:.95,decay_strength:.95,created_at:DT(55),valid_at:DT(48),foresight:'Freedom won but chained to the King',loc:'castle',arc:'climax'}
+];
+const fcts=[
+  {id:'f1',type:'L2',subject:'e1',predicate:'enslaved_at',object:'e9',object_value:'Celaena enslaved at Endovier',confidence:.99,decay_strength:.45,created_at:DT(1),valid_at:DT(1),invalid_at:DT(3),superseded_by:'f2'},
+  {id:'f2',type:'L2',subject:'e1',predicate:'freed_from',object:'e9',object_value:'Freed by Dorian',confidence:.98,decay_strength:.80,created_at:DT(3),valid_at:DT(3)},
+  {id:'f3',type:'L2',subject:'e2',predicate:'sponsors',object:'e1',object_value:'Dorian sponsors Celaena',confidence:.99,decay_strength:.90,created_at:DT(3),valid_at:DT(3)},
+  {id:'f4',type:'L2',subject:'e3',predicate:'guards',object:'e1',object_value:'Chaol guards Celaena',confidence:.97,decay_strength:.88,created_at:DT(1),valid_at:DT(1)},
+  {id:'f5',type:'L2',subject:'e1',predicate:'competes_in',object:'e8',object_value:'Champion tournament',confidence:.99,decay_strength:.85,created_at:DT(10),valid_at:DT(10)},
+  {id:'f6',type:'L2',subject:'e5',predicate:'befriends',object:'e1',object_value:'Nehemia befriends Celaena',confidence:.95,decay_strength:.88,created_at:DT(12),valid_at:DT(12)},
+  {id:'f7',type:'L2',subject:'e6',predicate:'uses',object:'e10',object_value:'Cain uses Wyrdmarks',confidence:.93,decay_strength:.75,created_at:DT(35),valid_at:DT(35)},
+  {id:'f8',type:'L2',subject:'e6',predicate:'kills',object:'e8',object_value:'Cain murders Champions',confidence:.90,decay_strength:.70,created_at:DT(18),valid_at:DT(18)},
+  {id:'f9',type:'L2',subject:'e7',predicate:'gives',object:'e12',object_value:'Elena gives the amulet',confidence:.98,decay_strength:.82,created_at:DT(15),valid_at:DT(15)},
+  {id:'f10',type:'L2',subject:'e2',predicate:'loves',object:'e1',object_value:'Dorian falls for Celaena',confidence:.88,decay_strength:.85,created_at:DT(25),valid_at:DT(25)},
+  {id:'f11',type:'L2',subject:'e1',predicate:'defeats',object:'e6',object_value:'Celaena defeats Cain',confidence:.99,decay_strength:.95,created_at:DT(48),valid_at:DT(48)},
+  {id:'f12',type:'L2',subject:'e1',predicate:'status',object:'e1',object_value:'Slave',confidence:.99,decay_strength:.25,created_at:DT(1),valid_at:DT(1),invalid_at:DT(55),superseded_by:'f13'},
+  {id:'f13',type:'L2',subject:'e1',predicate:'status',object:'e1',object_value:'King\'s Champion',confidence:.99,decay_strength:.96,created_at:DT(55),valid_at:DT(55)},
+  {id:'f14',type:'L2',subject:'e4',predicate:'threatens',object:'e3',object_value:'King threatens Chaol',confidence:.95,decay_strength:.90,created_at:DT(55),valid_at:DT(55)},
+  {id:'f15',type:'L2',subject:'e4',predicate:'banned',object:'e10',object_value:'King banned magic',confidence:.99,decay_strength:.88,created_at:DT(1),valid_at:DT(1)},
+  {id:'f16',type:'L2',subject:'e7',predicate:'ancestor_of',object:'e1',object_value:'Blood tie to Celaena',confidence:.80,decay_strength:.82,created_at:DT(54),valid_at:DT(54)},
+  {id:'f17',type:'L2',subject:'e3',predicate:'respects',object:'e1',object_value:'Chaol respects Celaena',confidence:.92,decay_strength:.90,created_at:DT(9),valid_at:DT(9)}
+];
+const pats=[
+  {id:'p1',type:'L3',description:'Celaena hides vulnerability behind wit — mask forged in Endovier',pattern_type:'behavioral',occurrence_count:12,evidence_strength:.92,decay_strength:.95,created_at:DT(15),valid_at:DT(1)},
+  {id:'p2',type:'L3',description:'The King uses loved ones as leverage to control Celaena',pattern_type:'situational',occurrence_count:4,evidence_strength:.85,decay_strength:.88,created_at:DT(55),valid_at:DT(3)},
+  {id:'p3',type:'L3',description:'Ancient magic resurfaces despite the ban',pattern_type:'situational',occurrence_count:8,evidence_strength:.90,decay_strength:.90,created_at:DT(38),valid_at:DT(15)},
+  {id:'p4',type:'L3',description:'Bonds through shared defiance — books, training, rebellion',pattern_type:'relational',occurrence_count:9,evidence_strength:.88,decay_strength:.92,created_at:DT(25),valid_at:DT(5)},
+  {id:'p5',type:'L3',description:'Freedom always comes with a hidden chain',pattern_type:'situational',occurrence_count:5,evidence_strength:.82,decay_strength:.86,created_at:DT(55),valid_at:DT(3)}
+];
+const prs=[
+  {id:'pr1',type:'L4',statement:'True strength comes from choosing who to protect',principle_type:'meta_cognitive',rationale:'Celaena transforms from survivor to protector',applicability:'Core character arc',reinforcement_count:9,contradiction_count:1,net_confidence:.90,decay_strength:1,created_at:DT(55),valid_at:DT(1)},
+  {id:'pr2',type:'L4',statement:'Power through fear breeds the resistance it seeks to crush',principle_type:'heuristic',rationale:'The King\'s cruelty creates his own enemies',applicability:'Political theme',reinforcement_count:6,contradiction_count:0,net_confidence:.94,decay_strength:1,created_at:DT(55),valid_at:DT(1)},
+  {id:'pr3',type:'L4',statement:'Blood ties and destiny cannot be outrun',principle_type:'domain_knowledge',rationale:'Elena: "blood ties can\'t be broken" — Celaena\'s hidden heritage',applicability:'Series mythology',reinforcement_count:5,contradiction_count:0,net_confidence:.88,decay_strength:1,created_at:DT(54),valid_at:DT(15)}
+];
+const AN=[...ents,...eps,...evts,...fcts,...pats,...prs];
+const EG=[
+  {f:'ep1',t:'ep2',c:'intra'},{f:'ep2',t:'ep3',c:'intra'},{f:'ep3',t:'ep4',c:'intra'},{f:'ep4',t:'ep5',c:'intra'},{f:'ep5',t:'ep6',c:'intra'},{f:'ep6',t:'ep7',c:'intra'},{f:'ep8',t:'ep9',c:'intra'},{f:'ep9',t:'ep10',c:'intra'},{f:'ep10',t:'ep11',c:'intra'},{f:'ep11',t:'ep12',c:'intra'},{f:'ep12',t:'ep13',c:'intra'},{f:'ep13',t:'ep14',c:'intra'},{f:'ep14',t:'ep15',c:'intra'},
+  {f:'ep1',t:'ev1',c:'prov'},{f:'ep2',t:'ev1',c:'prov'},{f:'ep3',t:'ev1',c:'prov'},{f:'ep4',t:'ev2',c:'prov'},{f:'ep9',t:'ev2',c:'prov'},{f:'ep7',t:'ev3',c:'prov'},{f:'ep8',t:'ev3',c:'prov'},{f:'ep6',t:'ev4',c:'prov'},{f:'ep10',t:'ev4',c:'prov'},{f:'ep11',t:'ev5',c:'prov'},{f:'ep12',t:'ev5',c:'prov'},{f:'ep13',t:'ev6',c:'prov'},{f:'ep14',t:'ev6',c:'prov'},{f:'ep15',t:'ev6',c:'prov'},
+  {f:'ev1',t:'ev2',c:'intra'},{f:'ev2',t:'ev3',c:'intra'},{f:'ev3',t:'ev4',c:'intra'},{f:'ev4',t:'ev5',c:'intra'},{f:'ev5',t:'ev6',c:'intra'},
+  {f:'f1',t:'ev1',c:'prov'},{f:'f2',t:'ev1',c:'prov'},{f:'f3',t:'ev1',c:'prov'},{f:'f4',t:'ev1',c:'prov'},{f:'f5',t:'ev2',c:'prov'},{f:'f17',t:'ev2',c:'prov'},{f:'f7',t:'ev5',c:'prov'},{f:'f8',t:'ev3',c:'prov'},{f:'f9',t:'ev3',c:'prov'},{f:'f10',t:'ev4',c:'prov'},{f:'f6',t:'ev4',c:'prov'},{f:'f11',t:'ev6',c:'prov'},{f:'f13',t:'ev6',c:'prov'},{f:'f14',t:'ev6',c:'prov'},{f:'f15',t:'ev1',c:'prov'},{f:'f16',t:'ev6',c:'prov'},
+  {f:'f2',t:'f1',c:'prov',tp:'SUP'},{f:'f13',t:'f12',c:'prov',tp:'SUP'},
+  {f:'p1',t:'f4',c:'prov'},{f:'p1',t:'f17',c:'prov'},{f:'p2',t:'f14',c:'prov'},{f:'p2',t:'f5',c:'prov'},{f:'p3',t:'f7',c:'prov'},{f:'p3',t:'f9',c:'prov'},{f:'p3',t:'f15',c:'prov'},{f:'p4',t:'f6',c:'prov'},{f:'p4',t:'f10',c:'prov'},{f:'p4',t:'f17',c:'prov'},{f:'p5',t:'f3',c:'prov'},{f:'p5',t:'f14',c:'prov'},
+  {f:'pr1',t:'p1',c:'prov'},{f:'pr1',t:'p4',c:'prov'},{f:'pr2',t:'p2',c:'prov'},{f:'pr2',t:'p5',c:'prov'},{f:'pr3',t:'p3',c:'prov'},
+  {f:'p1',t:'p4',c:'intra'},{f:'p2',t:'p5',c:'intra'},{f:'p3',t:'p5',c:'intra'},
+  {f:'e1',t:'ep1',c:'part'},{f:'e3',t:'ep1',c:'part'},{f:'e1',t:'ep2',c:'part'},{f:'e2',t:'ep2',c:'part'},{f:'e11',t:'ep2',c:'part'},{f:'e1',t:'ep3',c:'part'},{f:'e2',t:'ep3',c:'part'},{f:'e1',t:'ep4',c:'part'},{f:'e2',t:'ep4',c:'part'},{f:'e1',t:'ep5',c:'part'},{f:'e6',t:'ep5',c:'part'},{f:'e4',t:'ep5',c:'part'},{f:'e1',t:'ep6',c:'part'},{f:'e5',t:'ep6',c:'part'},{f:'e1',t:'ep7',c:'part'},{f:'e10',t:'ep7',c:'part'},{f:'e1',t:'ep8',c:'part'},{f:'e7',t:'ep8',c:'part'},{f:'e12',t:'ep8',c:'part'},{f:'e1',t:'ep9',c:'part'},{f:'e3',t:'ep9',c:'part'},{f:'e1',t:'ep10',c:'part'},{f:'e2',t:'ep10',c:'part'},{f:'e1',t:'ep11',c:'part'},{f:'e6',t:'ep11',c:'part'},{f:'e10',t:'ep11',c:'part'},{f:'e1',t:'ep12',c:'part'},{f:'e5',t:'ep12',c:'part'},{f:'e1',t:'ep13',c:'part'},{f:'e6',t:'ep13',c:'part'},{f:'e7',t:'ep13',c:'part'},{f:'e12',t:'ep13',c:'part'},{f:'e1',t:'ep14',c:'part'},{f:'e4',t:'ep14',c:'part'},{f:'e3',t:'ep14',c:'part'},{f:'e1',t:'ep15',c:'part'},{f:'e7',t:'ep15',c:'part'},
+  {f:'e1',t:'ev1',c:'part'},{f:'e2',t:'ev1',c:'part'},{f:'e3',t:'ev1',c:'part'},{f:'e9',t:'ev1',c:'part'},{f:'e1',t:'ev2',c:'part'},{f:'e2',t:'ev2',c:'part'},{f:'e3',t:'ev2',c:'part'},{f:'e8',t:'ev2',c:'part'},{f:'e1',t:'ev3',c:'part'},{f:'e7',t:'ev3',c:'part'},{f:'e10',t:'ev3',c:'part'},{f:'e1',t:'ev4',c:'part'},{f:'e2',t:'ev4',c:'part'},{f:'e5',t:'ev4',c:'part'},{f:'e1',t:'ev5',c:'part'},{f:'e6',t:'ev5',c:'part'},{f:'e5',t:'ev5',c:'part'},{f:'e1',t:'ev6',c:'part'},{f:'e6',t:'ev6',c:'part'},{f:'e7',t:'ev6',c:'part'},{f:'e4',t:'ev6',c:'part'},
+  {f:'e1',t:'f1',c:'part'},{f:'e9',t:'f1',c:'part'},{f:'e1',t:'f2',c:'part'},{f:'e2',t:'f3',c:'part'},{f:'e1',t:'f3',c:'part'},{f:'e3',t:'f4',c:'part'},{f:'e1',t:'f4',c:'part'},{f:'e1',t:'f5',c:'part'},{f:'e8',t:'f5',c:'part'},{f:'e5',t:'f6',c:'part'},{f:'e1',t:'f6',c:'part'},{f:'e6',t:'f7',c:'part'},{f:'e10',t:'f7',c:'part'},{f:'e6',t:'f8',c:'part'},{f:'e7',t:'f9',c:'part'},{f:'e12',t:'f9',c:'part'},{f:'e2',t:'f10',c:'part'},{f:'e1',t:'f10',c:'part'},{f:'e1',t:'f11',c:'part'},{f:'e6',t:'f11',c:'part'},{f:'e4',t:'f14',c:'part'},{f:'e3',t:'f14',c:'part'},{f:'e4',t:'f15',c:'part'},{f:'e7',t:'f16',c:'part'},{f:'e1',t:'f16',c:'part'},{f:'e3',t:'f17',c:'part'},{f:'e1',t:'f17',c:'part'},
+  {f:'e1',t:'p1',c:'part'},{f:'e4',t:'p2',c:'part'},{f:'e1',t:'p2',c:'part'},{f:'e10',t:'p3',c:'part'},{f:'e7',t:'p3',c:'part'},{f:'e1',t:'p4',c:'part'},{f:'e2',t:'p4',c:'part'},{f:'e3',t:'p4',c:'part'},{f:'e5',t:'p4',c:'part'},{f:'e1',t:'p5',c:'part'},{f:'e4',t:'p5',c:'part'},
+  {f:'e1',t:'pr1',c:'part'},{f:'e4',t:'pr2',c:'part'},{f:'e7',t:'pr3',c:'part'},{f:'e1',t:'pr3',c:'part'},
+  {f:'e1',t:'e2',c:'ent'},{f:'e1',t:'e3',c:'ent'},{f:'e1',t:'e5',c:'ent'},{f:'e1',t:'e7',c:'ent'},{f:'e2',t:'e3',c:'ent'},{f:'e2',t:'e4',c:'ent'},{f:'e4',t:'e11',c:'ent'},{f:'e6',t:'e11',c:'ent'},{f:'e6',t:'e10',c:'ent'},{f:'e5',t:'e10',c:'ent'},{f:'e7',t:'e12',c:'ent'},{f:'e1',t:'e4',c:'ent'},{f:'e3',t:'e4',c:'ent'}
+];
+
+// === THREE.JS ===
+const scene=new THREE.Scene();const cam=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.1,200);cam.position.set(0,3,30);
+const ren=new THREE.WebGLRenderer({antialias:true});ren.setSize(innerWidth,innerHeight);ren.setPixelRatio(Math.min(devicePixelRatio,2));ren.setClearColor(T.clear,1);document.body.prepend(ren.domElement);
+const dg=new THREE.BufferGeometry();const dp=new Float32Array(150*3);for(let i=0;i<150;i++){dp[i*3]=(Math.random()-.5)*60;dp[i*3+1]=(Math.random()-.5)*30;dp[i*3+2]=(Math.random()-.5)*60}
+dg.setAttribute('position',new THREE.BufferAttribute(dp,3));
+const dustM=new THREE.PointsMaterial({color:T.dust,size:.025,transparent:true,opacity:T.dop});scene.add(new THREE.Points(dg,dustM));
+const ambL=new THREE.AmbientLight(0xc0a888,T.amb);scene.add(ambL);
+const pl1=new THREE.PointLight(0xc96442,T.p1,40);pl1.position.set(5,10,12);scene.add(pl1);
+const pl2=new THREE.PointLight(0x5a9e97,T.p2,30);pl2.position.set(-10,-4,6);scene.add(pl2);
+
+const SZ={L0:.08,L1:.15,L2:.10,L3:.18,L4:.24,Entity:.15};
+let lay='spine',vL={L0:1,L1:1,L2:1,L3:1,L4:1,Entity:1},vE={prov:1,part:1,intra:1,ent:1};
+let sel=null,tMode='system',tVal=1,srch=false;
+const tS=DT(1).getTime(),tE=DT(55).getTime();
+const NM={},MS=[],EL=[];
+
+// Left panel toggle
+function toggleLP(){
+  const lp=document.getElementById('lpanel'),tog=document.getElementById('lpTog');
+  const collapsed=!lp.classList.contains('collapsed');
+  lp.classList.toggle('collapsed',collapsed);
+  tog.classList.toggle('show',collapsed);
+}
+
+// Theme toggle
+document.getElementById('thT').onclick=()=>{
+  theme=theme==='light'?'dark':'light';document.body.dataset.theme=theme;
+  T=TH[theme];CC=T.C;ren.setClearColor(T.clear,1);ambL.intensity=T.amb;pl1.intensity=T.p1;pl2.intensity=T.p2;dustM.color.set(T.dust);dustM.opacity=T.dop;
+  MS.forEach(m=>{const n=m.userData,c=CC[n.type],exp=!!(n.invalid_at||n.superseded_by),op=n.decay_strength*(exp?.35:1);
+    m.material.color.setRGB(c.r,c.g,c.b);m.material.emissive.setRGB(c.r*T.emF,c.g*T.emF,c.b*T.emF);m.userData._bop=op;if(!srch&&!sel)m.material.opacity=op});
+  EL.forEach(l=>{const e=l.userData;l.material.color.set(T.edge[e.c]);l.material.opacity=T.eOp[e.c]});
+  updSpine();
+};
+
+function ns(n){let b=SZ[n.type]||.1;if(n.heat_score)b*=.8+n.heat_score*.5;if(n.evidence_strength)b*=.8+n.evidence_strength*.35;if(n.net_confidence)b*=.8+n.net_confidence*.35;if(n.mention_count)b*=.7+Math.min(n.mention_count/80,1)*.5;return b}
+
+// === 6 LAYOUTS — every axis encodes meaning ===
+const GA=2.399963;
+
+function findEpX(n,eX){
+  for(const e of EG){if(e.f===n.id||e.t===n.id){const o=e.f===n.id?e.t:e.f;if(eX[o]!==undefined)return eX[o]}}
+  for(const e of EG){if(e.f===n.id||e.t===n.id){const m=e.f===n.id?e.t:e.f;
+    for(const e2 of EG){if(e2.f===m||e2.t===m){const o=e2.f===m?e2.t:e2.f;if(eX[o]!==undefined)return eX[o]}}}}
+  if(n.created_at)return((n.created_at.getTime()-tS)/(tE-tS))*24-12;
+  return 0;
+}
+function findPrimEnt(n){
+  for(const e of EG){if(e.c==='part'&&(e.f===n.id||e.t===n.id)){
+    const eid=e.f===n.id?e.t:e.f;if(ents.find(x=>x.id===eid))return eid;}}return null;
+}
+function tP(n){return n.created_at?((n.created_at.getTime()-tS)/(tE-tS)):0.5}
+
+function gp(l){
+  const p={},g={L0:[],L1:[],L2:[],L3:[],L4:[],Entity:[]};AN.forEach(n=>g[n.type].push(n));
+
+  if(l==='spine'){
+    // ─── CYLINDRICAL SPINE ───
+    // X = time (chapter, left→right). Y/Z plane = radial orbit, distance = abstraction.
+    const span=24, eL=g.L0.slice().sort((a,b)=>a.created_at-b.created_at), eX={};
+    eL.forEach((n,i)=>{const x=(i/Math.max(eL.length-1,1))*span-span/2;p[n.id]=new THREE.Vector3(x,0,0);eX[n.id]=x});
+    const radii={L1:2.5,Entity:3.5,L2:4.5,L3:6.5,L4:8.5};
+    const angOff={L1:0,Entity:1,L2:2,L3:3,L4:4};
+    const ct2={};
+    AN.filter(n=>n.type!=='L0').forEach(n=>{
+      const bx=findEpX(n,eX), r=radii[n.type]||4;
+      ct2[n.type]=(ct2[n.type]||0); const idx=ct2[n.type]++;
+      const ang=idx*GA+(angOff[n.type]||0);
+      p[n.id]=new THREE.Vector3(bx, Math.sin(ang)*r, Math.cos(ang)*r);
+    });
+
+  } else if(l==='character'){
+    // ─── CHARACTER WEB ───
+    // X/Z plane = social network. Each entity owns a pie-slice sector.
+    // Y = abstraction: L0 below (-3), entities at 0, L3/L4 above (3–5).
+    // Radius from center = layer distance.
+    const entN=g.Entity.length, sector=Math.PI*2/entN;
+    const entAng={};
+    g.Entity.forEach((n,i)=>{
+      const a=i*sector; entAng[n.id]=a;
+      p[n.id]=new THREE.Vector3(Math.cos(a)*3.5, 0, Math.sin(a)*3.5);
+    });
+    const lr={L0:10,L1:7.5,L2:5.5,L3:12,L4:14};
+    const ly={L0:-3.5,L1:-1.5,L2:0,L3:3,L4:5.5};
+    const sCt={};g.Entity.forEach(n=>{sCt[n.id]=0});
+    ['L2','L1','L0','L3','L4'].forEach(k=>{
+      g[k].forEach(n=>{
+        const eid=findPrimEnt(n);
+        const base=eid&&entAng[eid]!==undefined?entAng[eid]:0;
+        const sub=eid?(sCt[eid]++):0;
+        const step=sector*0.07;
+        const ang=base+(sub-4)*step;
+        p[n.id]=new THREE.Vector3(Math.cos(ang)*lr[k], ly[k], Math.sin(ang)*lr[k]);
+      });
+    });
+
+  } else if(l==='arc'){
+    // ─── STORY ARC ───
+    // X = chapter (time, left→right).
+    // Y = dramatic tension. Arc tags → height, drawing Freytag's pyramid.
+    // Z = layer type (depth). L0 front, higher abstraction pushed back.
+    const arcH={captivity:-4.5,rising:-1.5,crisis:2.5,climax:6,resolution:2,
+      all:0,romance:-0.5,protection:-2,rebellion:1.5,antagonist:3.5,destiny:5,magic:3.5};
+    const lZ={L0:0,L1:3,L2:-3,L3:6,L4:8,Entity:-5};
+    const lCt={};
+    AN.forEach(n=>{
+      const t=tP(n), x=(t-0.5)*24;
+      const arc=n.arc||n.pattern_type||'all';
+      const y=arcH[arc]||0;
+      const k=n.type; lCt[k]=(lCt[k]||0)+1;
+      const zSpread=Math.sin(lCt[k]*GA)*1.0;
+      p[n.id]=new THREE.Vector3(x, y, (lZ[k]||0)+zSpread);
+    });
+
+  } else if(l==='location'){
+    // ─── LOCATION CLUSTERS ───
+    // X = geographic spread. Three towers separated by 14 units.
+    // Y = abstraction layer within each tower (L0 bottom, L4 top).
+    // Z = golden-angle ring within each layer-level.
+    const locX={endovier:-14,castle:0,tomb:14};
+    const lY={L0:-5,L1:-2.5,L2:0,L3:3,L4:6,Entity:-1};
+    const locG={endovier:[],castle:[],tomb:[]};
+    AN.forEach(n=>{
+      const loc=n.loc||(n.created_at&&n.created_at.getDate()<5?'endovier':
+        n.created_at&&n.created_at.getDate()>=15&&n.created_at.getDate()<=40?'tomb':'castle');
+      (locG[loc]||locG.castle).push(n);
+    });
+    Object.entries(locG).forEach(([loc,nodes])=>{
+      const cx=locX[loc];
+      // Sub-group by layer
+      const byL={};nodes.forEach(n=>{const k=n.type;(byL[k]=byL[k]||[]).push(n)});
+      Object.entries(byL).forEach(([layer,lns])=>{
+        const y=lY[layer]||0;
+        const ringR=Math.max(1.5, lns.length*0.4);
+        lns.forEach((n,i)=>{
+          const ang=i*GA;
+          p[n.id]=new THREE.Vector3(cx+Math.cos(ang)*ringR, y, Math.sin(ang)*ringR);
+        });
+      });
+    });
+
+  } else if(l==='pyramid'){
+    // ─── KNOWLEDGE PYRAMID ───
+    // X/Z plane = flat rings. L0 widest (r=10), L4 narrowest (r=1). Actual funnel shape.
+    // Y = abstraction stepping upward. 2.5-unit gaps between layers.
+    // Golden angle on each ring for even node spacing.
+    const lY={L0:-6,L1:-3,L2:0,L3:3.5,L4:7.5,Entity:-1.5};
+    const lR={L0:10,L1:7.5,L2:5,L3:2.8,L4:1,Entity:6.5};
+    Object.entries(g).forEach(([k,nodes])=>{
+      nodes.forEach((n,i)=>{
+        const ang=i*GA, r=lR[k], y=lY[k];
+        p[n.id]=new THREE.Vector3(Math.cos(ang)*r, y, Math.sin(ang)*r);
+      });
+    });
+
+  } else if(l==='spiral'){
+    // ─── TEMPORAL SPIRAL ───
+    // X/Z plane = Archimedean spiral. Angle and radius grow with time.
+    //   Early chapters near center, late chapters at edge.
+    // Y = layer band. Each layer sits in its own horizontal plane, 2.5-unit gaps.
+    // Each layer gets angular offset so same-time nodes don't overlap vertically.
+    const lY={L0:0,L1:2.5,L2:-2.5,L3:-5,L4:-8,Entity:1};
+    const lAng={L0:0,L1:0.5,L2:1.0,L3:1.5,L4:2.0,Entity:0.3};
+    AN.forEach(n=>{
+      const t=tP(n);
+      const ang=t*Math.PI*4+(lAng[n.type]||0);
+      const r=2+t*10;
+      p[n.id]=new THREE.Vector3(Math.cos(ang)*r, lY[n.type]||0, Math.sin(ang)*r);
+    });
+  }
+  return p;
+}
+
+function build(){MS.forEach(m=>scene.remove(m));EL.forEach(l=>scene.remove(l));MS.length=0;EL.length=0;
+  const ps=gp(lay);
+  AN.forEach(n=>{const c=CC[n.type],sz=ns(n),exp=!!(n.invalid_at||n.superseded_by),op=n.decay_strength*(exp?.35:1);
+    let geo;if(n.type==='Entity')geo=new THREE.OctahedronGeometry(sz,1);else if(n.type==='L4')geo=new THREE.OctahedronGeometry(sz,0);else if(n.type==='L3')geo=new THREE.DodecahedronGeometry(sz,0);else if(n.type==='L1')geo=new THREE.IcosahedronGeometry(sz,0);else geo=new THREE.SphereGeometry(sz,10,10);
+    const mat=new THREE.MeshPhongMaterial({color:new THREE.Color(c.r,c.g,c.b),emissive:new THREE.Color(c.r*T.emF,c.g*T.emF,c.b*T.emF),transparent:true,opacity:op,shininess:35});
+    const m=new THREE.Mesh(geo,mat);m.position.copy(ps[n.id]);m.userData=n;m.userData._bop=op;scene.add(m);MS.push(m);NM[n.id]=m});
+  EG.forEach(e=>{const fm=NM[e.f],tm=NM[e.t];if(!fm||!tm)return;
+    const geo=new THREE.BufferGeometry().setFromPoints([fm.position.clone(),tm.position.clone()]);
+    const ln=new THREE.Line(geo,new THREE.LineBasicMaterial({color:T.edge[e.c],transparent:true,opacity:T.eOp[e.c]}));ln.userData=e;scene.add(ln);EL.push(ln)});
+  us();updSpine()}
+
+let spM=null,rMs=[];
+function updSpine(){if(spM){scene.remove(spM);spM=null}rMs.forEach(r=>scene.remove(r));rMs=[];
+  if(lay!=='spine')return;
+  const en=MS.filter(m=>m.userData.type==='L0').sort((a,b)=>a.userData.created_at-b.userData.created_at);
+  if(en.length<2)return;
+  const pts=en.map(m=>m.position.clone());const crv=new THREE.CatmullRomCurve3(pts);
+  const tg=new THREE.TubeGeometry(crv,64,.04,6,false);const c=CC.L0;
+  spM=new THREE.Mesh(tg,new THREE.MeshPhongMaterial({color:new THREE.Color(c.r,c.g,c.b),emissive:new THREE.Color(c.r*.12,c.g*.12,c.b*.12),transparent:true,opacity:theme==='light'?.5:.4,shininess:50}));
+  scene.add(spM);
+  [-9,-4,1,6].forEach(xp=>{[2.5,3.5,4.5,6.5,8.5].forEach((r,i)=>{
+    const rg=new THREE.RingGeometry(r-.01,r+.01,48);const cols=[CC.L1,CC.Entity,CC.L2,CC.L3,CC.L4];
+    const rm=new THREE.Mesh(rg,new THREE.MeshBasicMaterial({color:new THREE.Color(cols[i].r,cols[i].g,cols[i].b),transparent:true,opacity:.04,side:THREE.DoubleSide}));
+    rm.rotation.y=Math.PI/2;rm.position.x=xp;scene.add(rm);rMs.push(rm);
+  })});
+}
+
+function us(){document.getElementById('sn').textContent=MS.filter(m=>m.visible).length;document.getElementById('se').textContent=EL.filter(l=>l.visible).length;document.getElementById('sent').textContent=ents.length}
+function uv(){MS.forEach(m=>{const n=m.userData;let v=vL[n.type];if(tVal<1){const ct=new Date(tS+(tE-tS)*tVal);const tf=tMode==='system'?'created_at':'valid_at';if(n[tf]&&n[tf]>ct)v=0}m.visible=!!v});EL.forEach(l=>{const e=l.userData;l.visible=!!(NM[e.f]?.visible&&NM[e.t]?.visible&&vE[e.c])});us()}
+
+async function al(l){
+  lay=l;
+  // Load saved positions for this layout
+  await loadPositions(l);
+  const ps=gp(l);
+  // Override with saved custom positions if any
+  if(customPos[l]){Object.entries(customPos[l]).forEach(([id,sp])=>{if(ps[id])ps[id].set(sp.x,sp.y,sp.z)})}
+  const st={};MS.forEach(m=>{st[m.userData.id]=m.position.clone()});
+  const cams={spine:{d:30,y:.12,x:0},character:{d:30,y:.3,x:.25},arc:{d:30,y:.25,x:.05},location:{d:32,y:.2,x:.1},pyramid:{d:28,y:.4,x:.1},spiral:{d:28,y:.3,x:.4}};
+  const cv=cams[l]||cams.spine;cd=cv.d;ca.y=cv.y;ca.x=cv.x;uc();
+  const dur=1200,t0=performance.now();function s(now){const t=Math.min((now-t0)/dur,1),e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;MS.forEach(m=>{const id=m.userData.id;if(st[id]&&ps[id])m.position.lerpVectors(st[id],ps[id],e)});ue();if(t>=1)updSpine();if(t<1)requestAnimationFrame(s)}requestAnimationFrame(s)
+}
+function ue(){EL.forEach(l=>{const e=l.userData,fm=NM[e.f],tm=NM[e.t];if(fm&&tm)l.geometry.setFromPoints([fm.position.clone(),tm.position.clone()])})}
+
+// === NODE DRAG + CAMERA ORBIT ===
+// Left-click+drag on node = move node. Left-click+drag on empty = orbit. Right-click+drag = orbit always.
+// Click (no drag) on node = select/detail.
+let dr=0,px=0,py=0,ca={x:0,y:.12},cd=30,ct=new THREE.Vector3(0,0,0);
+let dragNode=null,dragPlane=new THREE.Plane(),dragOffset=new THREE.Vector3(),dragMoved=false;
+const raycaster=new THREE.Raycaster();
+const mouse=new THREE.Vector2();
+const customPos={}; // {layout: {nodeId: {x,y,z}}}
+
+function toMouse(e){mouse.x=(e.clientX/innerWidth)*2-1;mouse.y=-(e.clientY/innerHeight)*2+1}
+function uc(){cam.position.x=ct.x+Math.sin(ca.x)*Math.cos(ca.y)*cd;cam.position.y=ct.y+Math.sin(ca.y)*cd;cam.position.z=ct.z+Math.cos(ca.x)*Math.cos(ca.y)*cd;cam.lookAt(ct)}
+
+ren.domElement.addEventListener('mousedown',e=>{
+  px=e.clientX;py=e.clientY;dragMoved=false;
+  // Right-click always orbits
+  if(e.button===2){dr=2;e.preventDefault();return}
+  if(e.button!==0)return;
+  // Left-click: check if we hit a node
+  toMouse(e);raycaster.setFromCamera(mouse,cam);
+  const hits=raycaster.intersectObjects(MS.filter(x=>x.visible));
+  if(hits.length>0){
+    // Start dragging this node
+    dragNode=hits[0].object;
+    dr=3; // 3 = node drag mode
+    // Create a plane perpendicular to camera through the node
+    const camDir=new THREE.Vector3();cam.getWorldDirection(camDir);
+    dragPlane.setFromNormalAndCoplanarPoint(camDir,dragNode.position);
+    // Calculate offset so node doesn't jump to cursor
+    const intersection=new THREE.Vector3();
+    raycaster.ray.intersectPlane(dragPlane,intersection);
+    dragOffset.subVectors(dragNode.position,intersection);
+    ren.domElement.style.cursor='grabbing';
+  } else {
+    dr=1; // 1 = orbit mode
+  }
+});
+
+ren.domElement.addEventListener('mousemove',e=>{
+  const dx=e.clientX-px,dy=e.clientY-py;
+  if(Math.abs(dx)>2||Math.abs(dy)>2)dragMoved=true;
+
+  if(dr===1||dr===2){
+    // Orbit camera
+    ca.x-=(e.clientX-px)*.005;
+    ca.y+=(e.clientY-py)*.005;
+    ca.y=Math.max(-1.2,Math.min(1.2,ca.y));
+    px=e.clientX;py=e.clientY;
+    uc();
+  } else if(dr===3&&dragNode){
+    // Drag node on camera-perpendicular plane
+    toMouse(e);raycaster.setFromCamera(mouse,cam);
+    const intersection=new THREE.Vector3();
+    if(raycaster.ray.intersectPlane(dragPlane,intersection)){
+      dragNode.position.copy(intersection.add(dragOffset));
+      ue(); // update edges
+    }
+    px=e.clientX;py=e.clientY;
+  }
+
+  // Hover tooltip (only when not dragging)
+  if(!dr){
+    toMouse(e);raycaster.setFromCamera(mouse,cam);
+    const h=raycaster.intersectObjects(MS.filter(x=>x.visible));
+    const tip=document.getElementById('tip');
+    if(h.length){
+      const n=h[0].object.userData;
+      ren.domElement.style.cursor='grab';
+      const lb=n.name||n.title||n.statement||n.description||n.object_value||n.content?.slice(0,60)||n.id;
+      tip.innerHTML=`<div class="tty" style="color:${CC[n.type].h}">${n.type==='Entity'?'CHARACTER':n.type}</div>${lb}`;
+      tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-8)+'px';
+      tip.classList.add('v');
+    } else {
+      ren.domElement.style.cursor='default';
+      tip.classList.remove('v');
+    }
+  } else {
+    document.getElementById('tip').classList.remove('v');
+  }
+});
+
+ren.domElement.addEventListener('mouseup',e=>{
+  if(dr===3&&dragNode){
+    // Save this node's new position into customPos
+    if(dragMoved){
+      if(!customPos[lay])customPos[lay]={};
+      const pos=dragNode.position;
+      customPos[lay][dragNode.userData.id]={x:pos.x,y:pos.y,z:pos.z};
+      showPosStatus('Position changed — save to keep');
+    }
+    ren.domElement.style.cursor='grab';
+  }
+  // If it was a click (not a drag) on a node, select it
+  if(!dragMoved&&(dr===1||dr===3)){
+    toMouse(e);raycaster.setFromCamera(mouse,cam);
+    const h=raycaster.intersectObjects(MS.filter(x=>x.visible));
+    if(h.length)sn(h[0].object.userData);
+  }
+  dr=0;dragNode=null;
+});
+
+ren.domElement.addEventListener('wheel',e=>{cd+=e.deltaY*.012;cd=Math.max(5,Math.min(55,cd));uc()});
+ren.domElement.addEventListener('contextmenu',e=>e.preventDefault());
+
+// === PERSISTENT STORAGE ===
+function showPosStatus(msg){
+  const el=document.getElementById('posStatus');
+  el.textContent=msg;
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>{el.textContent=''},4000);
+}
+
+async function savePositions(){
+  // Merge current mesh positions into customPos for this layout
+  if(!customPos[lay])customPos[lay]={};
+  MS.forEach(m=>{
+    const pos=m.position;
+    customPos[lay][m.userData.id]={x:pos.x,y:pos.y,z:pos.z};
+  });
+  try{
+    await window.storage.set('trimemory-pos-'+lay, JSON.stringify(customPos[lay]));
+    showPosStatus('Saved ✓');
+  }catch(err){
+    // Fallback: use in-memory only
+    showPosStatus('Saved (session only)');
+  }
+}
+
+async function loadPositions(layout){
+  try{
+    const result=await window.storage.get('trimemory-pos-'+layout);
+    if(result&&result.value){
+      customPos[layout]=JSON.parse(result.value);
+      return true;
+    }
+  }catch(err){}
+  return false;
+}
+
+async function resetPositions(){
+  customPos[lay]={};
+  try{await window.storage.delete('trimemory-pos-'+lay)}catch(err){}
+  // Re-layout from scratch
+  const ps=gp(lay);
+  const st={};MS.forEach(m=>{st[m.userData.id]=m.position.clone()});
+  const dur=800,t0=performance.now();
+  function s(now){
+    const t=Math.min((now-t0)/dur,1),e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+    MS.forEach(m=>{const id=m.userData.id;if(st[id]&&ps[id])m.position.lerpVectors(st[id],ps[id],e)});
+    ue();if(t>=1)updSpine();if(t<1)requestAnimationFrame(s);
+  }
+  requestAnimationFrame(s);
+  showPosStatus('Reset to default');
+}
+
+// Apply saved positions to current meshes
+function applySavedPositions(layout){
+  const saved=customPos[layout];
+  if(!saved)return;
+  MS.forEach(m=>{
+    const sp=saved[m.userData.id];
+    if(sp)m.position.set(sp.x,sp.y,sp.z);
+  });
+  ue();
+}
+
+function sn(n){sel=n;hlp(n);sd(n)}
+function hlp(n){const ch=new Set([n.id]);function w(id,d){EG.forEach(e=>{if(e.c==='prov'||e.c==='part'){if(d==='d'&&e.t===id&&!ch.has(e.f)){ch.add(e.f);w(e.f,'d')}if(d==='u'&&e.f===id&&!ch.has(e.t)){ch.add(e.t);w(e.t,'u')}}})}w(n.id,'d');w(n.id,'u');
+  MS.forEach(m=>{const ic=ch.has(m.userData.id);m.material.opacity=ic?Math.max(m.userData.decay_strength,.65):.04;m.material.emissiveIntensity=ic?2.5:.1});
+  EL.forEach(l=>{const e=l.userData;l.material.opacity=(ch.has(e.f)&&ch.has(e.t))?.6:.005})}
+function chl(){srch=false;MS.forEach(m=>{m.material.opacity=m.userData._bop;m.material.emissiveIntensity=1});EL.forEach(l=>{const e=l.userData;l.material.opacity=T.eOp[e.c]})}
+function fd(d){if(!d)return'—';return'Ch.'+d.getDate()}
+function sd(n){const p=document.getElementById('rp'),rc=document.getElementById('rc');p.classList.remove('hd');
+  const c=CC[n.type],lb=n.name||n.title||n.statement||n.description||n.object_value||n.content?.slice(0,80)||n.id;
+  let h=`<span class="rb" style="background:${c.h}15;color:${c.h}">${n.type==='Entity'?'Character':n.type}</span><div class="rt">${lb}</div>`;
+  h+=`<div class="rs"><div class="rsh">Memory Strength</div><div class="db"><div class="dbt"><div class="dbf" style="width:${n.decay_strength*100}%;background:${c.h}"></div></div><div class="dbl" style="color:${c.h}">${(n.decay_strength*100)|0}%</div></div></div>`;
+  h+=`<div class="rs"><div class="rsh">Timeline</div><div class="tr"><span class="tl">Introduced</span><span class="tv">${fd(n.created_at)}</span></div>`;
+  if(n.valid_at)h+=`<div class="tr"><span class="tl">Active from</span><span class="tv">${fd(n.valid_at)}</span></div>`;
+  if(n.invalid_at)h+=`<div class="tr"><span class="tl">Superseded</span><span class="tv" style="color:var(--chart5)">${fd(n.invalid_at)}</span></div>`;h+=`</div>`;
+  if(n.type==='Entity')h+=`<div class="rs"><div class="rsh">Character</div><div class="rv"><strong>${n.entity_type}</strong> · ${n.summary}<br>Mentions: ${n.mention_count}</div></div>`;
+  else if(n.type==='L0')h+=`<div class="rs"><div class="rsh">Scene</div><div class="rv">${n.content}</div></div>`;
+  else if(n.type==='L1'){h+=`<div class="rs"><div class="rsh">Narrative</div><div class="rv">${n.narrative}</div></div>`;h+=`<div class="rs"><div class="rsh">Foresight</div><div class="rv" style="color:var(--chart2);font-style:italic">${n.foresight}</div></div>`}
+  else if(n.type==='L2'){const s=ents.find(e=>e.id===n.subject),o=ents.find(e=>e.id===n.object);h+=`<div class="rs"><div class="rsh">Fact</div><div class="rv"><strong>${s?.name||'?'}</strong> → ${n.predicate} → <strong>${o?.name||n.object_value||'?'}</strong><br>Confidence: ${(n.confidence*100)|0}%</div></div>`}
+  else if(n.type==='L3')h+=`<div class="rs"><div class="rsh">Pattern</div><div class="rv"><strong>${n.pattern_type}</strong> · Seen ${n.occurrence_count}× · ${(n.evidence_strength*100)|0}% evidence</div></div>`;
+  else if(n.type==='L4')h+=`<div class="rs"><div class="rsh">Principle</div><div class="rv"><strong>${n.principle_type}</strong><br>${n.rationale}<br><em>${n.applicability}</em><br>+${n.reinforcement_count}/-${n.contradiction_count} · ${(n.net_confidence*100)|0}%</div></div>`;
+  const chain=gc(n);if(chain.length>1){h+=`<div class="rs"><div class="rsh">Provenance</div><div class="pc">`;chain.forEach((cn,i)=>{const cc=CC[cn.type],cl=cn.name||cn.title||cn.statement||cn.description||cn.object_value||cn.content?.slice(0,42)||cn.id;h+=`<div class="pn" style="border-color:${cc.h}" onclick="sn(AN.find(x=>x.id==='${cn.id}'))">${cn.type}: ${cl}</div>`;if(i<chain.length-1)h+=`<div class="pa">↓</div>`});h+=`</div></div>`}
+  rc.innerHTML=h}
+function gc(n){const ch=[n];let cur=n.id;for(let i=0;i<5;i++){const up=EG.find(e=>e.f===cur&&e.c==='prov'&&e.tp!=='SUP');if(up){const un=AN.find(x=>x.id===up.t);if(un){ch.unshift(un);cur=un.id}else break}else break}cur=n.id;for(let i=0;i<5;i++){const dn=EG.find(e=>e.t===cur&&e.c==='prov'&&e.tp!=='SUP');if(dn){const dno=AN.find(x=>x.id===dn.f);if(dno){ch.push(dno);cur=dno.id}else break}else break}return ch}
+function closeD(){document.getElementById('rp').classList.add('hd');sel=null;chl()}
+
+// === UI WIRING ===
+const li=[{k:'L0',n:'Episodes',c:'var(--primary)',ct:eps.length},{k:'L1',n:'Events',c:'var(--chart2)',ct:evts.length},{k:'L2',n:'Facts',c:'var(--chart1)',ct:fcts.length},{k:'L3',n:'Patterns',c:'var(--chart5)',ct:pats.length},{k:'L4',n:'Principles',c:'#7a6ad4',ct:prs.length},{k:'Entity',n:'Characters',c:'#5a9e97',ct:ents.length}];
+const ltg=document.getElementById('ltg');li.forEach(l=>{const d=document.createElement('div');d.className='lt';d.innerHTML=`<div class="ld" style="background:${l.c}"></div><span class="ln">${l.n}</span><span class="lc">${l.ct}</span><div class="ck on" data-l="${l.k}"></div>`;d.querySelector('.ck').onclick=function(ev){ev.stopPropagation();vL[this.dataset.l]=vL[this.dataset.l]?0:1;this.classList.toggle('on');uv()};ltg.appendChild(d)});
+
+const ei=[{k:'prov',n:'Provenance'},{k:'part',n:'Participation'},{k:'intra',n:'Story Flow'},{k:'ent',n:'Character Links'}];
+const etg=document.getElementById('etg');ei.forEach(e=>{const d=document.createElement('div');d.className='lt';d.innerHTML=`<span class="ln">${e.n}</span><div class="ck on" data-e="${e.k}"></div>`;d.querySelector('.ck').onclick=function(ev){ev.stopPropagation();vE[this.dataset.e]=vE[this.dataset.e]?0:1;this.classList.toggle('on');uv()};etg.appendChild(d)});
+
+const layouts=[
+  {k:'spine',t:'⏤ Cylindrical Spine',d:'Episodes form the horizontal backbone. Other layers orbit at increasing radii — see how raw scenes consolidate into wisdom.'},
+  {k:'character',t:'◉ Character Web',d:'Entity-focused. Characters at the center, all knowledge radiating outward by connection strength.'},
+  {k:'arc',t:'⌒ Story Arc',d:'X = chapter, Y = narrative tension. Trace the rising action through crisis to climax and resolution.'},
+  {k:'location',t:'⊞ Location Clusters',d:'Grouped by place — Endovier, Glass Castle, the Tomb. See which knowledge belongs where.'},
+  {k:'pyramid',t:'△ Knowledge Pyramid',d:'L0 episodes at the wide base, L4 principles at the apex. Abstraction rises upward.'},
+  {k:'spiral',t:'◌ Temporal Spiral',d:'Time spirals outward from the center. Early chapters near the core, later chapters at the edge.'}
+];
+const lbt=document.getElementById('lbt');
+layouts.forEach(l=>{
+  const w=document.createElement('div');w.className='lbw';
+  const b=document.createElement('button');b.className='lbb'+(l.k===lay?' on':'');
+  b.innerHTML=`<div class="lb-t">${l.t}</div><div class="lb-d">${l.d}</div>`;
+  b.onclick=()=>{lbt.querySelectorAll('.lbb').forEach(x=>x.classList.remove('on'));b.classList.add('on');al(l.k)};
+  w.appendChild(b);lbt.appendChild(w);
+});
+
+document.getElementById('tls').oninput=function(){tVal=this.value/1e3;if(tVal>=.99)document.getElementById('tld').textContent='All Chapters';else document.getElementById('tld').textContent='Ch.'+Math.round(1+54*tVal);uv()};
+window.stm=function(m,b){tMode=m;document.querySelectorAll('.tlm button').forEach(x=>x.classList.remove('on'));b.classList.add('on');uv()};
+document.getElementById('sinp').oninput=function(){const q=this.value.toLowerCase();if(!q){srch=false;chl();return}srch=true;
+  MS.forEach(m=>{const n=m.userData;const tx=[n.name,n.title,n.statement,n.description,n.object_value,n.content,n.narrative,n.predicate,n.summary].filter(Boolean).join(' ').toLowerCase();const hit=tx.includes(q);m.material.opacity=hit?.9:.03;m.material.emissiveIntensity=hit?2.5:.08});EL.forEach(l=>{l.material.opacity=.005})};
+
+// Position buttons
+const posBtns=document.getElementById('posBtns');
+const row1=document.createElement('div');row1.className='pos-row';
+const saveBtn=document.createElement('button');saveBtn.className='pos-btn save';saveBtn.textContent='Save Layout';
+saveBtn.onclick=savePositions;
+const resetBtn=document.createElement('button');resetBtn.className='pos-btn';resetBtn.textContent='Reset';
+resetBtn.onclick=resetPositions;
+row1.appendChild(saveBtn);row1.appendChild(resetBtn);
+posBtns.appendChild(row1);
+
+function animate(){requestAnimationFrame(animate);const t=performance.now()*.001;MS.forEach((m,i)=>{if(m.visible&&!dragNode){m.position.y+=Math.sin(t*.5+i*.35)*.00006;m.rotation.y+=.0005}});ren.render(scene,cam)}
+addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();ren.setSize(innerWidth,innerHeight)});
+
+// Init: build, then load any saved positions
+async function init(){
+  build();uc();
+  const loaded=await loadPositions(lay);
+  if(loaded){applySavedPositions(lay);ue();showPosStatus('Loaded saved positions')}
+  animate();
+  // Show drag hint briefly
+  const dh=document.getElementById('dragHint');dh.classList.add('v');setTimeout(()=>dh.classList.remove('v'),4000);
+}
+init();
+</script></body></html>
