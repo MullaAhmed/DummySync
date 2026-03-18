@@ -1,0 +1,599 @@
+{
+  "schema": "neo4j-relationship",
+  "relationships": [
+    {
+      "type": "NEXT",
+      "start_label": "Episode",
+      "start_uuid": "episode-endovier-escort",
+      "end_label": "Episode",
+      "end_uuid": "episode-dorian-offer",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T11:00:00Z"
+      }
+    },
+    {
+      "type": "NEXT",
+      "start_label": "Episode",
+      "start_uuid": "episode-dorian-offer",
+      "end_label": "Episode",
+      "end_uuid": "episode-journey-rifthold",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T18:00:00Z"
+      }
+    },
+    {
+      "type": "NEXT",
+      "start_label": "Episode",
+      "start_uuid": "episode-journey-rifthold",
+      "end_label": "Episode",
+      "end_uuid": "episode-library-and-clocktower",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T09:00:00Z"
+      }
+    },
+    {
+      "type": "NEXT",
+      "start_label": "Episode",
+      "start_uuid": "episode-library-and-clocktower",
+      "end_label": "Episode",
+      "end_uuid": "episode-first-tests-and-cain",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T16:00:00Z"
+      }
+    },
+    {
+      "type": "NEXT",
+      "start_label": "Episode",
+      "start_uuid": "episode-first-tests-and-cain",
+      "end_label": "Episode",
+      "end_uuid": "episode-nehemia-arrives",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-03T10:00:00Z"
+      }
+    },
+    {
+      "type": "NEXT",
+      "start_label": "Episode",
+      "start_uuid": "episode-nehemia-arrives",
+      "end_label": "Episode",
+      "end_uuid": "episode-elena-warning",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T09:15:00Z"
+      }
+    },
+    {
+      "type": "NEXT",
+      "start_label": "Episode",
+      "start_uuid": "episode-elena-warning",
+      "end_label": "Episode",
+      "end_uuid": "episode-final-duel",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T14:00:00Z"
+      }
+    },
+    {
+      "type": "DERIVED_FROM",
+      "start_label": "Summary",
+      "start_uuid": "summary-endovier-extraction",
+      "end_label": "Episode",
+      "end_uuid": "episode-endovier-escort",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T12:30:00Z"
+      }
+    },
+    {
+      "type": "DERIVED_FROM",
+      "start_label": "Summary",
+      "start_uuid": "summary-endovier-extraction",
+      "end_label": "Episode",
+      "end_uuid": "episode-dorian-offer",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T12:30:00Z"
+      }
+    },
+    {
+      "type": "DERIVED_FROM",
+      "start_label": "Summary",
+      "start_uuid": "summary-rifthold-arrival",
+      "end_label": "Episode",
+      "end_uuid": "episode-journey-rifthold",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T10:15:00Z"
+      }
+    },
+    {
+      "type": "DERIVED_FROM",
+      "start_label": "Summary",
+      "start_uuid": "summary-rifthold-arrival",
+      "end_label": "Episode",
+      "end_uuid": "episode-library-and-clocktower",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T10:15:00Z"
+      }
+    },
+    {
+      "type": "DERIVED_FROM",
+      "start_label": "Summary",
+      "start_uuid": "summary-champion-training",
+      "end_label": "Episode",
+      "end_uuid": "episode-first-tests-and-cain",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T18:00:00Z"
+      }
+    },
+    {
+      "type": "DERIVED_FROM",
+      "start_label": "Summary",
+      "start_uuid": "summary-nehemia-and-magic",
+      "end_label": "Episode",
+      "end_uuid": "episode-nehemia-arrives",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T11:00:00Z"
+      }
+    },
+    {
+      "type": "DERIVED_FROM",
+      "start_label": "Summary",
+      "start_uuid": "summary-nehemia-and-magic",
+      "end_label": "Episode",
+      "end_uuid": "episode-elena-warning",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T11:00:00Z"
+      }
+    },
+    {
+      "type": "DERIVED_FROM",
+      "start_label": "Summary",
+      "start_uuid": "summary-final-duel",
+      "end_label": "Episode",
+      "end_uuid": "episode-final-duel",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T16:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-celaena-sardothien",
+      "end_label": "Episode",
+      "end_uuid": "episode-endovier-escort",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T09:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-chaol-westfall",
+      "end_label": "Episode",
+      "end_uuid": "episode-endovier-escort",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T09:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-endovier",
+      "end_label": "Episode",
+      "end_uuid": "episode-endovier-escort",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T09:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-celaena-sardothien",
+      "end_label": "Episode",
+      "end_uuid": "episode-dorian-offer",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T11:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-dorian-havilliard",
+      "end_label": "Episode",
+      "end_uuid": "episode-dorian-offer",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T11:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-chaol-westfall",
+      "end_label": "Episode",
+      "end_uuid": "episode-dorian-offer",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T11:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-celaena-sardothien",
+      "end_label": "Episode",
+      "end_uuid": "episode-journey-rifthold",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T18:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-chaol-westfall",
+      "end_label": "Episode",
+      "end_uuid": "episode-journey-rifthold",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-01T18:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-glass-castle",
+      "end_label": "Episode",
+      "end_uuid": "episode-library-and-clocktower",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T09:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-wyrdmarks",
+      "end_label": "Episode",
+      "end_uuid": "episode-library-and-clocktower",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T09:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-celaena-sardothien",
+      "end_label": "Episode",
+      "end_uuid": "episode-first-tests-and-cain",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T16:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-chaol-westfall",
+      "end_label": "Episode",
+      "end_uuid": "episode-first-tests-and-cain",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T16:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-cain",
+      "end_label": "Episode",
+      "end_uuid": "episode-first-tests-and-cain",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T16:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-duke-perrington",
+      "end_label": "Episode",
+      "end_uuid": "episode-first-tests-and-cain",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-02T16:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-celaena-sardothien",
+      "end_label": "Episode",
+      "end_uuid": "episode-nehemia-arrives",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-03T10:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-nehemia-ytger",
+      "end_label": "Episode",
+      "end_uuid": "episode-nehemia-arrives",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-03T10:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-eyllwe",
+      "end_label": "Episode",
+      "end_uuid": "episode-nehemia-arrives",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-03T10:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-celaena-sardothien",
+      "end_label": "Episode",
+      "end_uuid": "episode-elena-warning",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T09:15:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-elena",
+      "end_label": "Episode",
+      "end_uuid": "episode-elena-warning",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T09:15:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-wyrdmarks",
+      "end_label": "Episode",
+      "end_uuid": "episode-elena-warning",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T09:15:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-celaena-sardothien",
+      "end_label": "Episode",
+      "end_uuid": "episode-final-duel",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T14:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-chaol-westfall",
+      "end_label": "Episode",
+      "end_uuid": "episode-final-duel",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T14:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-nehemia-ytger",
+      "end_label": "Episode",
+      "end_uuid": "episode-final-duel",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T14:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-cain",
+      "end_label": "Episode",
+      "end_uuid": "episode-final-duel",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T14:00:00Z"
+      }
+    },
+    {
+      "type": "MENTIONED_IN",
+      "start_label": "Entity",
+      "start_uuid": "entity-elena",
+      "end_label": "Episode",
+      "end_uuid": "episode-final-duel",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T14:00:00Z"
+      }
+    },
+    {
+      "type": "SUPPORTED_BY",
+      "start_label": "Pattern",
+      "start_uuid": "pattern-celaena-performs-strength",
+      "end_label": "Entity",
+      "end_uuid": "entity-celaena-sardothien",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-03T20:00:00Z"
+      }
+    },
+    {
+      "type": "SUPPORTED_BY",
+      "start_label": "Pattern",
+      "start_uuid": "pattern-chaol-protects-through-discipline",
+      "end_label": "Entity",
+      "end_uuid": "entity-chaol-westfall",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T11:30:00Z"
+      }
+    },
+    {
+      "type": "SUPPORTED_BY",
+      "start_label": "Pattern",
+      "start_uuid": "pattern-chaol-protects-through-discipline",
+      "end_label": "Entity",
+      "end_uuid": "entity-celaena-sardothien",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T11:30:00Z"
+      }
+    },
+    {
+      "type": "SUPPORTED_BY",
+      "start_label": "Pattern",
+      "start_uuid": "pattern-nehemia-broadens-celaena",
+      "end_label": "Entity",
+      "end_uuid": "entity-nehemia-ytger",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T17:00:00Z"
+      }
+    },
+    {
+      "type": "SUPPORTED_BY",
+      "start_label": "Pattern",
+      "start_uuid": "pattern-nehemia-broadens-celaena",
+      "end_label": "Entity",
+      "end_uuid": "entity-celaena-sardothien",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T17:00:00Z"
+      }
+    },
+    {
+      "type": "SUPPORTED_BY",
+      "start_label": "Pattern",
+      "start_uuid": "pattern-court-corruption-clusters-around-cain",
+      "end_label": "Entity",
+      "end_uuid": "entity-cain",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T18:00:00Z"
+      }
+    },
+    {
+      "type": "SUPPORTED_BY",
+      "start_label": "Pattern",
+      "start_uuid": "pattern-court-corruption-clusters-around-cain",
+      "end_label": "Entity",
+      "end_uuid": "entity-duke-perrington",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T18:00:00Z"
+      }
+    },
+    {
+      "type": "SUPPORTED_BY",
+      "start_label": "Pattern",
+      "start_uuid": "pattern-wyrd-clues-precede-escalation",
+      "end_label": "Entity",
+      "end_uuid": "entity-wyrdmarks",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T20:30:00Z"
+      }
+    },
+    {
+      "type": "SUPPORTED_BY",
+      "start_label": "Pattern",
+      "start_uuid": "pattern-wyrd-clues-precede-escalation",
+      "end_label": "Entity",
+      "end_uuid": "entity-elena",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-04T20:30:00Z"
+      }
+    },
+    {
+      "type": "GENERALIZED_FROM",
+      "start_label": "Principle",
+      "start_uuid": "principle-survival-requires-performance",
+      "end_label": "Pattern",
+      "end_uuid": "pattern-celaena-performs-strength",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T20:00:00Z"
+      }
+    },
+    {
+      "type": "GENERALIZED_FROM",
+      "start_label": "Principle",
+      "start_uuid": "principle-survival-requires-performance",
+      "end_label": "Pattern",
+      "end_uuid": "pattern-court-corruption-clusters-around-cain",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T20:00:00Z"
+      }
+    },
+    {
+      "type": "GENERALIZED_FROM",
+      "start_label": "Principle",
+      "start_uuid": "principle-trust-follows-protection",
+      "end_label": "Pattern",
+      "end_uuid": "pattern-chaol-protects-through-discipline",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T20:30:00Z"
+      }
+    },
+    {
+      "type": "GENERALIZED_FROM",
+      "start_label": "Principle",
+      "start_uuid": "principle-trust-follows-protection",
+      "end_label": "Pattern",
+      "end_uuid": "pattern-nehemia-broadens-celaena",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-05T20:30:00Z"
+      }
+    },
+    {
+      "type": "GENERALIZED_FROM",
+      "start_label": "Principle",
+      "start_uuid": "principle-suppressed-magic-resurfaces-through-proxies",
+      "end_label": "Pattern",
+      "end_uuid": "pattern-wyrd-clues-precede-escalation",
+      "properties": {
+        "group_id": "throne_of_glass",
+        "created_at": "2026-03-06T09:00:00Z"
+      }
+    }
+  ]
+}

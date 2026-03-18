@@ -1,0 +1,145 @@
+{
+  "label": "Summary",
+  "layer": 1,
+  "schema": "neo4j-node",
+  "nodes": [
+    {
+      "labels": ["Summary"],
+      "properties": {
+        "uuid": "summary-endovier-extraction",
+        "group_id": "throne_of_glass",
+        "layer": 1,
+        "name": "summary_endovier_extraction",
+        "summary_type": "multi_turn",
+        "narrative": "Celaena is removed from Endovier, tested by royal power, and recruited into a competition that converts imprisonment into conditional service.",
+        "atomic_facts": [
+          "Chaol retrieves Celaena from Endovier.",
+          "Dorian offers Celaena a route out of slavery.",
+          "Celaena accepts a champion bargain tied to future freedom."
+        ],
+        "foresight": "This event creates the core status-revision chain that will dominate the rest of the graph.",
+        "key_entities": ["Celaena Sardothien", "Chaol Westfall", "Dorian Havilliard", "Endovier"],
+        "importance_score": 0.96,
+        "source_episode_uuids": [
+          "episode-endovier-escort",
+          "episode-dorian-offer"
+        ],
+        "created_at": "2026-03-01T12:30:00Z",
+        "decay_strength": 0.97,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 5,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Summary"],
+      "properties": {
+        "uuid": "summary-rifthold-arrival",
+        "group_id": "throne_of_glass",
+        "layer": 1,
+        "name": "summary_rifthold_arrival",
+        "summary_type": "multi_turn",
+        "narrative": "The journey to Rifthold hardens court boundaries around Celaena, while the glass castle, the clock tower, and the library reveal that knowledge and atmosphere matter as much as steel.",
+        "atomic_facts": [
+          "Chaol escorts Celaena into Rifthold.",
+          "Celaena notices Wyrdmarks around the clock tower.",
+          "The royal library becomes a strategic and emotional refuge."
+        ],
+        "foresight": "The castle will evolve from a prisonlike setting into the central stage for both political and magical escalation.",
+        "key_entities": ["Celaena Sardothien", "Chaol Westfall", "Dorian Havilliard", "Glass Castle", "Wyrdmarks"],
+        "importance_score": 0.87,
+        "source_episode_uuids": [
+          "episode-journey-rifthold",
+          "episode-library-and-clocktower"
+        ],
+        "created_at": "2026-03-02T10:15:00Z",
+        "decay_strength": 0.95,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 4,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Summary"],
+      "properties": {
+        "uuid": "summary-champion-training",
+        "group_id": "throne_of_glass",
+        "layer": 1,
+        "name": "summary_champion_training",
+        "summary_type": "dialogue",
+        "narrative": "The champion trials expose Cain as the most dangerous rival and reveal Chaol's mix of discipline, distrust, and reluctant investment in Celaena's survival.",
+        "atomic_facts": [
+          "Cain emerges as the competition's strongest visible threat.",
+          "Chaol trains Celaena directly.",
+          "Court violence intensifies around the champion tests."
+        ],
+        "foresight": "Repeated exposure to danger will turn training into trust and rivalry into something darker.",
+        "key_entities": ["Celaena Sardothien", "Chaol Westfall", "Cain", "Duke Perrington", "Glass Castle"],
+        "importance_score": 0.84,
+        "source_episode_uuids": [
+          "episode-first-tests-and-cain"
+        ],
+        "created_at": "2026-03-02T18:00:00Z",
+        "decay_strength": 0.94,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 4,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Summary"],
+      "properties": {
+        "uuid": "summary-nehemia-and-magic",
+        "group_id": "throne_of_glass",
+        "layer": 1,
+        "name": "summary_nehemia_and_magic",
+        "summary_type": "multi_turn",
+        "narrative": "Nehemia's arrival opens a political and emotional alliance for Celaena, while Elena's warnings and the poison test confirm that hidden magic is reshaping the competition.",
+        "atomic_facts": [
+          "Nehemia becomes Celaena's friend and political mirror.",
+          "Elena warns Celaena that danger is moving through the castle.",
+          "The competition is being manipulated beyond normal court rivalry."
+        ],
+        "foresight": "Friendship and mythic knowledge will converge during the final duel.",
+        "key_entities": ["Celaena Sardothien", "Nehemia Ytger", "Elena", "Wyrdmarks", "Glass Castle"],
+        "importance_score": 0.93,
+        "source_episode_uuids": [
+          "episode-nehemia-arrives",
+          "episode-elena-warning"
+        ],
+        "created_at": "2026-03-04T11:00:00Z",
+        "decay_strength": 0.96,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 5,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Summary"],
+      "properties": {
+        "uuid": "summary-final-duel",
+        "group_id": "throne_of_glass",
+        "layer": 1,
+        "name": "summary_final_duel",
+        "summary_type": "environment",
+        "narrative": "The final duel fuses personal rivalry, political symbolism, and forbidden magic: Nehemia's staff, Elena's intervention, Chaol's lethal choice, and Celaena's victory all collapse into a single turning point.",
+        "atomic_facts": [
+          "Nehemia arms Celaena with an Eyllwe staff.",
+          "Cain's power is revealed as unnatural.",
+          "Chaol kills Cain and Celaena wins the title."
+        ],
+        "foresight": "The new title stabilizes Celaena's status but deepens the graph's unresolved magical and political tensions.",
+        "key_entities": ["Celaena Sardothien", "Chaol Westfall", "Nehemia Ytger", "Cain", "Elena"],
+        "importance_score": 0.99,
+        "source_episode_uuids": [
+          "episode-final-duel"
+        ],
+        "created_at": "2026-03-05T16:00:00Z",
+        "decay_strength": 0.99,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 6,
+        "embedding": null
+      }
+    }
+  ]
+}

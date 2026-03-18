@@ -1,0 +1,223 @@
+{
+  "label": "Entity",
+  "layer": 2,
+  "schema": "neo4j-node",
+  "nodes": [
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-celaena-sardothien",
+        "group_id": "throne_of_glass",
+        "name": "Celaena Sardothien",
+        "layer": 2,
+        "content": "Adarlan's most notorious assassin, released from Endovier to compete as a champion.",
+        "entity_type": "Person",
+        "summary": "Central entity connecting imprisonment, court survival, friendship, hidden magic, and the final duel.",
+        "created_at": "2026-03-01T09:00:00Z",
+        "valid_at": "2025-01-01T00:00:00Z",
+        "decay_strength": 0.99,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 18,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-chaol-westfall",
+        "group_id": "throne_of_glass",
+        "name": "Chaol Westfall",
+        "layer": 2,
+        "content": "Captain of the Royal Guard and Celaena's escort, trainer, and eventual protector.",
+        "entity_type": "Person",
+        "summary": "Relational anchor for the trust-through-discipline pattern.",
+        "created_at": "2026-03-01T09:05:00Z",
+        "valid_at": "2025-01-01T00:00:00Z",
+        "decay_strength": 0.97,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 14,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-dorian-havilliard",
+        "group_id": "throne_of_glass",
+        "name": "Dorian Havilliard",
+        "layer": 2,
+        "content": "Crown Prince of Adarlan who recruits Celaena and keeps bringing her deeper into court life.",
+        "entity_type": "Person",
+        "summary": "Catalyst for the initial bargain and a recurring force around knowledge, freedom, and attraction.",
+        "created_at": "2026-03-01T11:00:00Z",
+        "valid_at": "2025-01-02T00:00:00Z",
+        "decay_strength": 0.95,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 10,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-nehemia-ytger",
+        "group_id": "throne_of_glass",
+        "name": "Nehemia Ytger",
+        "layer": 2,
+        "content": "Princess of Eyllwe whose friendship and politics transform Celaena's view of the court.",
+        "entity_type": "Person",
+        "summary": "Bridge between personal trust and anti-imperial strategy.",
+        "created_at": "2026-03-03T10:00:00Z",
+        "valid_at": "2025-01-20T00:00:00Z",
+        "decay_strength": 0.96,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 9,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-king-of-adarlan",
+        "group_id": "throne_of_glass",
+        "name": "King of Adarlan",
+        "layer": 2,
+        "content": "Conqueror whose court, competition, and anti-magic regime define the story's pressure system.",
+        "entity_type": "Person",
+        "summary": "The political center of gravity around which the champion system operates.",
+        "created_at": "2026-03-01T11:15:00Z",
+        "valid_at": "2025-01-02T00:00:00Z",
+        "decay_strength": 0.9,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 6,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-duke-perrington",
+        "group_id": "throne_of_glass",
+        "name": "Duke Perrington",
+        "layer": 2,
+        "content": "Council power broker who sponsors Cain and becomes a focal point for suspicion around dark influence.",
+        "entity_type": "Person",
+        "summary": "Concentrates the corruption arc around one visible court actor.",
+        "created_at": "2026-03-01T11:10:00Z",
+        "valid_at": "2025-01-02T00:00:00Z",
+        "decay_strength": 0.88,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 6,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-cain",
+        "group_id": "throne_of_glass",
+        "name": "Cain",
+        "layer": 2,
+        "content": "Brutal champion backed by Perrington who becomes visibly tied to dark power before his death.",
+        "entity_type": "Person",
+        "summary": "Main rival in the competition and key signal for the corruption pattern.",
+        "created_at": "2026-03-02T16:05:00Z",
+        "valid_at": "2025-01-16T00:00:00Z",
+        "decay_strength": 0.72,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 8,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-elena",
+        "group_id": "throne_of_glass",
+        "name": "Elena",
+        "layer": 2,
+        "content": "Ancient queen who warns Celaena and intervenes during the final duel.",
+        "entity_type": "Person",
+        "summary": "Mythic agent linking hidden symbols to concrete survival.",
+        "created_at": "2026-03-04T09:20:00Z",
+        "valid_at": "2025-02-02T00:00:00Z",
+        "decay_strength": 0.93,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 6,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-endovier",
+        "group_id": "throne_of_glass",
+        "name": "Endovier",
+        "layer": 2,
+        "content": "Salt-mine prison that defines Celaena's initial status and the stakes of every later status shift.",
+        "entity_type": "Location",
+        "summary": "Location node anchoring the first fact supersession chain.",
+        "created_at": "2026-03-01T09:00:00Z",
+        "valid_at": "2025-01-01T00:00:00Z",
+        "decay_strength": 0.85,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 4,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-glass-castle",
+        "group_id": "throne_of_glass",
+        "name": "Glass Castle",
+        "layer": 2,
+        "content": "Court setting that contains the competition, the library, the clock tower, and the final duel.",
+        "entity_type": "Location",
+        "summary": "Primary stage for the semantic and temporal convergence of the graph.",
+        "created_at": "2026-03-02T09:00:00Z",
+        "valid_at": "2025-01-09T00:00:00Z",
+        "decay_strength": 0.94,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 9,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-eyllwe",
+        "group_id": "throne_of_glass",
+        "name": "Eyllwe",
+        "layer": 2,
+        "content": "Nehemia's homeland and the moral counterweight to Adarlan's empire.",
+        "entity_type": "Location",
+        "summary": "Geopolitical node that widens the graph beyond the castle walls.",
+        "created_at": "2026-03-03T10:05:00Z",
+        "valid_at": "2025-01-20T00:00:00Z",
+        "decay_strength": 0.89,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 4,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Entity"],
+      "properties": {
+        "uuid": "entity-wyrdmarks",
+        "group_id": "throne_of_glass",
+        "name": "Wyrdmarks",
+        "layer": 2,
+        "content": "Forbidden symbols and magical traces that recur around the clock tower, Elena, Cain, and the final duel.",
+        "entity_type": "Concept",
+        "summary": "Concept node for the hidden-magic storyline and its higher-order principle.",
+        "created_at": "2026-03-02T09:40:00Z",
+        "valid_at": "2025-01-09T00:00:00Z",
+        "decay_strength": 0.91,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 7,
+        "embedding": null
+      }
+    }
+  ]
+}

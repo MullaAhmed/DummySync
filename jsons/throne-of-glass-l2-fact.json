@@ -1,0 +1,293 @@
+{
+  "type": "FACT",
+  "layer": 2,
+  "schema": "neo4j-relationship",
+  "relationships": [
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-celaena-sardothien",
+      "end_label": "Entity",
+      "end_uuid": "entity-endovier",
+      "properties": {
+        "uuid": "fact-celaena-status-prisoner",
+        "group_id": "throne_of_glass",
+        "relation": "STATUS_AT",
+        "fact": "Celaena is imprisoned in Endovier.",
+        "fact_embedding": null,
+        "confidence": 0.99,
+        "created_at": "2026-03-01T09:10:00Z",
+        "valid_at": "2025-01-01T00:00:00Z",
+        "invalid_at": "2025-01-02T00:00:00Z",
+        "expired_at": "2026-03-01T11:20:00Z",
+        "source_episode_uuids": ["episode-endovier-escort"],
+        "decay_strength": 0.82,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-chaol-westfall",
+      "end_label": "Entity",
+      "end_uuid": "entity-celaena-sardothien",
+      "properties": {
+        "uuid": "fact-chaol-escorts-celaena",
+        "group_id": "throne_of_glass",
+        "relation": "ESCORTS",
+        "fact": "Chaol escorts Celaena out of Endovier and into Adarlan's court.",
+        "fact_embedding": null,
+        "confidence": 0.97,
+        "created_at": "2026-03-01T09:20:00Z",
+        "valid_at": "2025-01-01T00:00:00Z",
+        "invalid_at": null,
+        "expired_at": null,
+        "source_episode_uuids": ["episode-endovier-escort", "episode-journey-rifthold"],
+        "decay_strength": 0.93,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-dorian-havilliard",
+      "end_label": "Entity",
+      "end_uuid": "entity-celaena-sardothien",
+      "properties": {
+        "uuid": "fact-dorian-recruits-celaena",
+        "group_id": "throne_of_glass",
+        "relation": "RECRUITS",
+        "fact": "Dorian recruits Celaena as his champion candidate.",
+        "fact_embedding": null,
+        "confidence": 0.96,
+        "created_at": "2026-03-01T11:10:00Z",
+        "valid_at": "2025-01-02T00:00:00Z",
+        "invalid_at": null,
+        "expired_at": null,
+        "source_episode_uuids": ["episode-dorian-offer"],
+        "decay_strength": 0.94,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-celaena-sardothien",
+      "end_label": "Entity",
+      "end_uuid": "entity-king-of-adarlan",
+      "properties": {
+        "uuid": "fact-celaena-status-competitor",
+        "group_id": "throne_of_glass",
+        "relation": "COMPETES_FOR",
+        "fact": "Celaena enters the competition to become the King's Champion.",
+        "fact_embedding": null,
+        "confidence": 0.98,
+        "created_at": "2026-03-01T11:20:00Z",
+        "valid_at": "2025-01-02T00:00:00Z",
+        "invalid_at": "2025-02-22T00:00:00Z",
+        "expired_at": "2026-03-05T16:20:00Z",
+        "source_episode_uuids": ["episode-dorian-offer", "episode-first-tests-and-cain"],
+        "decay_strength": 0.86,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-duke-perrington",
+      "end_label": "Entity",
+      "end_uuid": "entity-cain",
+      "properties": {
+        "uuid": "fact-perrington-sponsors-cain",
+        "group_id": "throne_of_glass",
+        "relation": "SPONSORS",
+        "fact": "Duke Perrington sponsors Cain in the competition.",
+        "fact_embedding": null,
+        "confidence": 0.95,
+        "created_at": "2026-03-02T16:10:00Z",
+        "valid_at": "2025-01-16T00:00:00Z",
+        "invalid_at": "2025-02-22T00:00:00Z",
+        "expired_at": null,
+        "source_episode_uuids": ["episode-first-tests-and-cain", "episode-final-duel"],
+        "decay_strength": 0.9,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-nehemia-ytger",
+      "end_label": "Entity",
+      "end_uuid": "entity-eyllwe",
+      "properties": {
+        "uuid": "fact-nehemia-princess-of-eyllwe",
+        "group_id": "throne_of_glass",
+        "relation": "PRINCESS_OF",
+        "fact": "Nehemia is the princess of Eyllwe.",
+        "fact_embedding": null,
+        "confidence": 0.99,
+        "created_at": "2026-03-03T10:05:00Z",
+        "valid_at": "2025-01-20T00:00:00Z",
+        "invalid_at": null,
+        "expired_at": null,
+        "source_episode_uuids": ["episode-nehemia-arrives"],
+        "decay_strength": 0.95,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-nehemia-ytger",
+      "end_label": "Entity",
+      "end_uuid": "entity-celaena-sardothien",
+      "properties": {
+        "uuid": "fact-nehemia-befriends-celaena",
+        "group_id": "throne_of_glass",
+        "relation": "BEFRIENDS",
+        "fact": "Nehemia becomes one of Celaena's first true friends in the castle.",
+        "fact_embedding": null,
+        "confidence": 0.93,
+        "created_at": "2026-03-03T10:30:00Z",
+        "valid_at": "2025-01-20T00:00:00Z",
+        "invalid_at": null,
+        "expired_at": null,
+        "source_episode_uuids": ["episode-nehemia-arrives"],
+        "decay_strength": 0.96,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-chaol-westfall",
+      "end_label": "Entity",
+      "end_uuid": "entity-celaena-sardothien",
+      "properties": {
+        "uuid": "fact-chaol-trains-celaena",
+        "group_id": "throne_of_glass",
+        "relation": "TRAINS",
+        "fact": "Chaol trains Celaena for the champion trials.",
+        "fact_embedding": null,
+        "confidence": 0.95,
+        "created_at": "2026-03-02T17:00:00Z",
+        "valid_at": "2025-01-16T00:00:00Z",
+        "invalid_at": null,
+        "expired_at": null,
+        "source_episode_uuids": ["episode-first-tests-and-cain"],
+        "decay_strength": 0.94,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-king-of-adarlan",
+      "end_label": "Entity",
+      "end_uuid": "entity-wyrdmarks",
+      "properties": {
+        "uuid": "fact-king-suppresses-magic",
+        "group_id": "throne_of_glass",
+        "relation": "SUPPRESSES",
+        "fact": "The King of Adarlan suppresses magic and the older symbolic order around it.",
+        "fact_embedding": null,
+        "confidence": 0.9,
+        "created_at": "2026-03-02T09:45:00Z",
+        "valid_at": "2025-01-09T00:00:00Z",
+        "invalid_at": null,
+        "expired_at": null,
+        "source_episode_uuids": ["episode-library-and-clocktower"],
+        "decay_strength": 0.9,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-elena",
+      "end_label": "Entity",
+      "end_uuid": "entity-celaena-sardothien",
+      "properties": {
+        "uuid": "fact-elena-warns-celaena",
+        "group_id": "throne_of_glass",
+        "relation": "WARNS",
+        "fact": "Elena warns Celaena that hidden danger is moving through the competition.",
+        "fact_embedding": null,
+        "confidence": 0.92,
+        "created_at": "2026-03-04T09:25:00Z",
+        "valid_at": "2025-02-02T00:00:00Z",
+        "invalid_at": null,
+        "expired_at": null,
+        "source_episode_uuids": ["episode-elena-warning"],
+        "decay_strength": 0.95,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-cain",
+      "end_label": "Entity",
+      "end_uuid": "entity-wyrdmarks",
+      "properties": {
+        "uuid": "fact-cain-draws-dark-power",
+        "group_id": "throne_of_glass",
+        "relation": "DRAWS_POWER_FROM",
+        "fact": "Cain draws unnatural strength from the same hidden magical system signaled by Wyrdmarks and Elena's warnings.",
+        "fact_embedding": null,
+        "confidence": 0.84,
+        "created_at": "2026-03-05T15:30:00Z",
+        "valid_at": "2025-02-22T00:00:00Z",
+        "invalid_at": "2025-02-22T00:00:00Z",
+        "expired_at": null,
+        "source_episode_uuids": ["episode-final-duel"],
+        "decay_strength": 0.83,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-celaena-sardothien",
+      "end_label": "Entity",
+      "end_uuid": "entity-king-of-adarlan",
+      "properties": {
+        "uuid": "fact-celaena-becomes-kings-champion",
+        "group_id": "throne_of_glass",
+        "relation": "BECOMES_CHAMPION_OF",
+        "fact": "Celaena becomes the King's Champion after defeating Cain.",
+        "fact_embedding": null,
+        "confidence": 0.99,
+        "created_at": "2026-03-05T16:20:00Z",
+        "valid_at": "2025-02-22T00:00:00Z",
+        "invalid_at": null,
+        "expired_at": null,
+        "source_episode_uuids": ["episode-final-duel"],
+        "decay_strength": 0.99,
+        "weight": 1.0
+      }
+    },
+    {
+      "type": "FACT",
+      "start_label": "Entity",
+      "start_uuid": "entity-chaol-westfall",
+      "end_label": "Entity",
+      "end_uuid": "entity-cain",
+      "properties": {
+        "uuid": "fact-chaol-kills-cain",
+        "group_id": "throne_of_glass",
+        "relation": "KILLS",
+        "fact": "Chaol kills Cain to stop him from striking Celaena after the duel.",
+        "fact_embedding": null,
+        "confidence": 0.98,
+        "created_at": "2026-03-05T16:35:00Z",
+        "valid_at": "2025-02-22T00:00:00Z",
+        "invalid_at": null,
+        "expired_at": null,
+        "source_episode_uuids": ["episode-final-duel"],
+        "decay_strength": 0.97,
+        "weight": 1.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "label": "Pattern",
+  "layer": 3,
+  "schema": "neo4j-node",
+  "nodes": [
+    {
+      "labels": ["Pattern"],
+      "properties": {
+        "uuid": "pattern-celaena-performs-strength",
+        "group_id": "throne_of_glass",
+        "layer": 3,
+        "name": "celaena_performs_strength",
+        "pattern_type": "behavioral",
+        "description": "Celaena repeatedly hides fear and vulnerability behind wit, swagger, and theatrical confidence.",
+        "evidence_strength": 0.86,
+        "occurrence_count": 4,
+        "conditions": "Most visible when authority figures or rivals are trying to control her.",
+        "source_fact_uuids": [
+          "fact-celaena-status-prisoner",
+          "fact-celaena-status-competitor",
+          "fact-celaena-becomes-kings-champion"
+        ],
+        "source_summary_uuids": [
+          "summary-endovier-extraction",
+          "summary-champion-training",
+          "summary-final-duel"
+        ],
+        "first_observed": "2025-01-01T00:00:00Z",
+        "last_observed": "2025-02-22T00:00:00Z",
+        "created_at": "2026-03-03T20:00:00Z",
+        "decay_strength": 0.96,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 4,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Pattern"],
+      "properties": {
+        "uuid": "pattern-chaol-protects-through-discipline",
+        "group_id": "throne_of_glass",
+        "layer": 3,
+        "name": "chaol_protects_through_discipline",
+        "pattern_type": "relational",
+        "description": "Chaol's care for Celaena appears first as rules, training, and hard boundaries before becoming overt protection.",
+        "evidence_strength": 0.88,
+        "occurrence_count": 4,
+        "conditions": "Appears in travel, training, and crisis rather than in open declarations.",
+        "source_fact_uuids": [
+          "fact-chaol-escorts-celaena",
+          "fact-chaol-trains-celaena",
+          "fact-chaol-kills-cain"
+        ],
+        "source_summary_uuids": [
+          "summary-endovier-extraction",
+          "summary-champion-training",
+          "summary-final-duel"
+        ],
+        "first_observed": "2025-01-01T00:00:00Z",
+        "last_observed": "2025-02-22T00:00:00Z",
+        "created_at": "2026-03-04T11:30:00Z",
+        "decay_strength": 0.97,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 5,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Pattern"],
+      "properties": {
+        "uuid": "pattern-nehemia-broadens-celaena",
+        "group_id": "throne_of_glass",
+        "layer": 3,
+        "name": "nehemia_broadens_celaena",
+        "pattern_type": "relational",
+        "description": "Nehemia's friendship steadily pushes Celaena from private survival toward political and moral solidarity.",
+        "evidence_strength": 0.83,
+        "occurrence_count": 3,
+        "conditions": "Most evident when Eyllwe, empire, or sacrifice enter the conversation.",
+        "source_fact_uuids": [
+          "fact-nehemia-princess-of-eyllwe",
+          "fact-nehemia-befriends-celaena",
+          "fact-celaena-becomes-kings-champion"
+        ],
+        "source_summary_uuids": [
+          "summary-nehemia-and-magic",
+          "summary-final-duel"
+        ],
+        "first_observed": "2025-01-20T00:00:00Z",
+        "last_observed": "2025-02-22T00:00:00Z",
+        "created_at": "2026-03-04T17:00:00Z",
+        "decay_strength": 0.95,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 4,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Pattern"],
+      "properties": {
+        "uuid": "pattern-court-corruption-clusters-around-cain",
+        "group_id": "throne_of_glass",
+        "layer": 3,
+        "name": "court_corruption_clusters_around_cain",
+        "pattern_type": "situational",
+        "description": "The competition's most violent escalations cluster around Cain and Perrington rather than around ordinary rivalry.",
+        "evidence_strength": 0.84,
+        "occurrence_count": 3,
+        "conditions": "Strengthens whenever sponsorship, unexplained deaths, or abnormal power converge.",
+        "source_fact_uuids": [
+          "fact-perrington-sponsors-cain",
+          "fact-cain-draws-dark-power",
+          "fact-chaol-kills-cain"
+        ],
+        "source_summary_uuids": [
+          "summary-champion-training",
+          "summary-final-duel"
+        ],
+        "first_observed": "2025-01-16T00:00:00Z",
+        "last_observed": "2025-02-22T00:00:00Z",
+        "created_at": "2026-03-05T18:00:00Z",
+        "decay_strength": 0.94,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 4,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Pattern"],
+      "properties": {
+        "uuid": "pattern-wyrd-clues-precede-escalation",
+        "group_id": "throne_of_glass",
+        "layer": 3,
+        "name": "wyrd_clues_precede_escalation",
+        "pattern_type": "situational",
+        "description": "Wyrdmarks, Elena, and other magical signals appear before each major escalation in the court plot.",
+        "evidence_strength": 0.87,
+        "occurrence_count": 3,
+        "conditions": "Appears when symbolic anomalies arrive before an open attack or revelation.",
+        "source_fact_uuids": [
+          "fact-king-suppresses-magic",
+          "fact-elena-warns-celaena",
+          "fact-cain-draws-dark-power"
+        ],
+        "source_summary_uuids": [
+          "summary-rifthold-arrival",
+          "summary-nehemia-and-magic",
+          "summary-final-duel"
+        ],
+        "first_observed": "2025-01-09T00:00:00Z",
+        "last_observed": "2025-02-22T00:00:00Z",
+        "created_at": "2026-03-04T20:30:00Z",
+        "decay_strength": 0.96,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 4,
+        "embedding": null
+      }
+    }
+  ]
+}

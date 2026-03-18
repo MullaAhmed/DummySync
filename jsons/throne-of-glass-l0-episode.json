@@ -1,0 +1,183 @@
+{
+  "label": "Episode",
+  "layer": 0,
+  "schema": "neo4j-node",
+  "nodes": [
+    {
+      "labels": ["Episode"],
+      "properties": {
+        "uuid": "episode-endovier-escort",
+        "group_id": "throne_of_glass",
+        "name": "endovier_escort",
+        "layer": 0,
+        "content": "After a year in Endovier, Celaena is marched through the salt mines by Chaol Westfall and delivered to the royal court under heavy guard.",
+        "source": "message",
+        "source_description": "Curated paraphrase from chapters 1-2",
+        "actor": "narrator",
+        "is_summarized": true,
+        "created_at": "2026-03-01T09:00:00Z",
+        "expired_at": null,
+        "valid_at": "2025-01-01T00:00:00Z",
+        "invalid_at": null,
+        "decay_strength": 0.98,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 7,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Episode"],
+      "properties": {
+        "uuid": "episode-dorian-offer",
+        "group_id": "throne_of_glass",
+        "name": "dorian_offer",
+        "layer": 0,
+        "content": "Dorian offers Celaena a bargain: compete as his champion and serve four years as the King's Champion in exchange for freedom from Endovier.",
+        "source": "message",
+        "source_description": "Curated paraphrase from chapters 2-3",
+        "actor": "narrator",
+        "is_summarized": true,
+        "created_at": "2026-03-01T11:00:00Z",
+        "expired_at": null,
+        "valid_at": "2025-01-02T00:00:00Z",
+        "invalid_at": null,
+        "decay_strength": 0.97,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 8,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Episode"],
+      "properties": {
+        "uuid": "episode-journey-rifthold",
+        "group_id": "throne_of_glass",
+        "name": "journey_to_rifthold",
+        "layer": 0,
+        "content": "Chaol escorts Celaena across Adarlan toward Rifthold, where she studies the ruined landscape and the rules of the court closing around her.",
+        "source": "message",
+        "source_description": "Curated paraphrase from chapters 4-7",
+        "actor": "narrator",
+        "is_summarized": true,
+        "created_at": "2026-03-01T18:00:00Z",
+        "expired_at": null,
+        "valid_at": "2025-01-05T00:00:00Z",
+        "invalid_at": null,
+        "decay_strength": 0.95,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 5,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Episode"],
+      "properties": {
+        "uuid": "episode-library-and-clocktower",
+        "group_id": "throne_of_glass",
+        "name": "library_and_clocktower",
+        "layer": 0,
+        "content": "Inside the glass castle, Celaena discovers the unsettling clock tower, notices a Wyrdmark on the path, and finds the royal library that reawakens her hunger for knowledge.",
+        "source": "message",
+        "source_description": "Curated paraphrase from chapter 8",
+        "actor": "narrator",
+        "is_summarized": true,
+        "created_at": "2026-03-02T09:00:00Z",
+        "expired_at": null,
+        "valid_at": "2025-01-09T00:00:00Z",
+        "invalid_at": null,
+        "decay_strength": 0.96,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 6,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Episode"],
+      "properties": {
+        "uuid": "episode-first-tests-and-cain",
+        "group_id": "throne_of_glass",
+        "name": "first_tests_and_cain",
+        "layer": 0,
+        "content": "Training begins, Cain establishes himself as the most dangerous rival in the competition, and Chaol pushes Celaena to survive the opening tests.",
+        "source": "message",
+        "source_description": "Curated paraphrase from chapters 10-18",
+        "actor": "narrator",
+        "is_summarized": true,
+        "created_at": "2026-03-02T16:00:00Z",
+        "expired_at": null,
+        "valid_at": "2025-01-16T00:00:00Z",
+        "invalid_at": null,
+        "decay_strength": 0.94,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 6,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Episode"],
+      "properties": {
+        "uuid": "episode-nehemia-arrives",
+        "group_id": "throne_of_glass",
+        "name": "nehemia_arrives",
+        "layer": 0,
+        "content": "Princess Nehemia of Eyllwe arrives at the castle and quickly becomes both a political provocation and a genuine friend to Celaena.",
+        "source": "message",
+        "source_description": "Curated paraphrase from chapters 19-32",
+        "actor": "narrator",
+        "is_summarized": true,
+        "created_at": "2026-03-03T10:00:00Z",
+        "expired_at": null,
+        "valid_at": "2025-01-20T00:00:00Z",
+        "invalid_at": null,
+        "decay_strength": 0.95,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 6,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Episode"],
+      "properties": {
+        "uuid": "episode-elena-warning",
+        "group_id": "throne_of_glass",
+        "name": "elena_warning",
+        "layer": 0,
+        "content": "Elena appears to Celaena with warnings about hidden danger, while poison tests and eerie signs around the castle deepen the sense that the competition is being manipulated.",
+        "source": "message",
+        "source_description": "Curated paraphrase from chapters 31-41",
+        "actor": "narrator",
+        "is_summarized": true,
+        "created_at": "2026-03-04T09:15:00Z",
+        "expired_at": null,
+        "valid_at": "2025-02-02T00:00:00Z",
+        "invalid_at": null,
+        "decay_strength": 0.93,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 7,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Episode"],
+      "properties": {
+        "uuid": "episode-final-duel",
+        "group_id": "throne_of_glass",
+        "name": "final_duel",
+        "layer": 0,
+        "content": "Nehemia arms Celaena with a staff, the duel with Cain turns supernatural, Elena intervenes, Chaol kills Cain, and Celaena wins the title of King's Champion.",
+        "source": "message",
+        "source_description": "Curated paraphrase from chapters 47-50",
+        "actor": "narrator",
+        "is_summarized": true,
+        "created_at": "2026-03-05T14:00:00Z",
+        "expired_at": null,
+        "valid_at": "2025-02-22T00:00:00Z",
+        "invalid_at": null,
+        "decay_strength": 0.99,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 10,
+        "embedding": null
+      }
+    }
+  ]
+}

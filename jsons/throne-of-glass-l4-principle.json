@@ -1,0 +1,82 @@
+{
+  "label": "Principle",
+  "layer": 4,
+  "schema": "neo4j-node",
+  "nodes": [
+    {
+      "labels": ["Principle"],
+      "properties": {
+        "uuid": "principle-survival-requires-performance",
+        "group_id": "throne_of_glass",
+        "layer": 4,
+        "name": "survival_requires_performance",
+        "principle_type": "heuristic",
+        "statement": "At Adarlan's court, survival depends on managing appearances as carefully as violence.",
+        "rationale": "Celaena's status only stabilizes when she turns wit, discipline, and symbolic acts into strategic performance.",
+        "confidence": 0.9,
+        "applicable_contexts": [
+          "court politics",
+          "coercive institutions",
+          "asymmetric power"
+        ],
+        "counter_examples": 0,
+        "last_validated": "2026-03-06T09:00:00Z",
+        "created_at": "2026-03-05T20:00:00Z",
+        "decay_strength": 1.0,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 3,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Principle"],
+      "properties": {
+        "uuid": "principle-trust-follows-protection",
+        "group_id": "throne_of_glass",
+        "layer": 4,
+        "name": "trust_follows_protection",
+        "principle_type": "interaction_norm",
+        "statement": "Trust in this story is earned through repeated acts of protection, not through titles or promises.",
+        "rationale": "Chaol and Nehemia become meaningful to Celaena only after their care is demonstrated under risk.",
+        "confidence": 0.88,
+        "applicable_contexts": [
+          "alliances",
+          "friendship under danger",
+          "emotional inference"
+        ],
+        "counter_examples": 0,
+        "last_validated": "2026-03-06T09:00:00Z",
+        "created_at": "2026-03-05T20:30:00Z",
+        "decay_strength": 1.0,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 3,
+        "embedding": null
+      }
+    },
+    {
+      "labels": ["Principle"],
+      "properties": {
+        "uuid": "principle-suppressed-magic-resurfaces-through-proxies",
+        "group_id": "throne_of_glass",
+        "layer": 4,
+        "name": "suppressed_magic_resurfaces_through_proxies",
+        "principle_type": "domain_knowledge",
+        "statement": "Suppressed magic does not disappear; it resurfaces indirectly through symbols, agents, and corrupted institutions.",
+        "rationale": "The clock tower, Wyrdmarks, Elena's warnings, and Cain's transformation all show hidden power leaking back through proxies.",
+        "confidence": 0.91,
+        "applicable_contexts": [
+          "forbidden systems",
+          "mystery escalation",
+          "mythic foreshadowing"
+        ],
+        "counter_examples": 0,
+        "last_validated": "2026-03-06T09:00:00Z",
+        "created_at": "2026-03-06T09:00:00Z",
+        "decay_strength": 1.0,
+        "last_accessed": "2026-03-06T09:00:00Z",
+        "access_count": 2,
+        "embedding": null
+      }
+    }
+  ]
+}
