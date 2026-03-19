@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>TriMemory — Throne of Glass</title>
+    <title>DummySync — Throne of Glass</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap");
@@ -2541,7 +2541,7 @@
         });
         try {
           await window.storage.set(
-            "trimemory-pos-" + lay,
+            "dummysync-pos-" + lay,
             JSON.stringify(customPos[lay]),
           );
           showPosStatus("Saved ✓");
@@ -2553,7 +2553,7 @@
 
       async function loadPositions(layout) {
         try {
-          const result = await window.storage.get("trimemory-pos-" + layout);
+          const result = await window.storage.get("dummysync-pos-" + layout);
           if (result && result.value) {
             customPos[layout] = JSON.parse(result.value);
             return true;
@@ -2565,7 +2565,7 @@
       async function resetPositions() {
         customPos[lay] = {};
         try {
-          await window.storage.delete("trimemory-pos-" + lay);
+          await window.storage.delete("dummysync-pos-" + lay);
         } catch (err) {}
         // Re-layout from scratch
         const ps = gp(lay);
